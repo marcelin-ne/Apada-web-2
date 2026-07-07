@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const entries = (await getCollection('autismo')).sort((a, b) => a.data.order - b.data.order);
+
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+---
+
+<BaseLayout
+  title="Autismo"
+  description="Qué es el autismo, señales tempranas, diagnóstico, terapias, derechos e inclusión, mitos y verdades — información clara sobre el TEA."
+>
+  <section class="bg-brand-navy px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-3xl font-bold text-white sm:text-4xl">Entendiendo el autismo</h1>
+      <p class="mt-4 text-base text-white/80 sm:text-lg">
+        Información clara y respetuosa sobre el Trastorno del Espectro Autista (TEA), pensada para familias,
+        docentes y profesionales.
+      </p>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    {rendered.map(({ entry, Content }) => (
+      <section id={entry.data.category} class="scroll-mt-20 border-b border-border py-10 first:pt-0 last:border-0">
+        <h2 class="text-2xl font-bold text-foreground">{entry.data.title}</h2>
+        <div class="prose prose-sm sm:prose-base mt-4 max-w-none text-foreground/90 prose-headings:font-semibold prose-a:text-primary">
+          <Content />
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

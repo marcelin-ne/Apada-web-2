@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/brand/logo.png';
+import { NAV_ITEMS, CONTACT, WHATSAPP_URL } from '@/lib/nav';
+
+const year = new Date().getFullYear();
+
+const socialLinks = [
+  { label: 'Facebook', href: 'https://facebook.com' },
+  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'Twitter / X', href: 'https://twitter.com' },
+  { label: 'YouTube', href: 'https://youtube.com' },
+];
+---
+
+<footer class="border-t border-border bg-brand-navy text-white">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="sm:col-span-2 lg:col-span-1">
+        <Image src={logo} alt="APADA del Ecuador" height={40} width={73} class="h-10 w-auto brightness-0 invert" />
+        <p class="mt-4 max-w-xs text-sm text-white/70">
+          Somos padres que ayudan a padres en el camino del autismo.
+        </p>
+      </div>
+
+      <nav aria-label="Mapa del sitio">
+        <h2 class="text-sm font-semibold tracking-wide text-white/90 uppercase">Navegación</h2>
+        <ul class="mt-4 space-y-2">
+          {NAV_ITEMS.map((item) => (
+            <li>
+              <a href={item.href} class="text-sm text-white/70 transition-colors hover:text-white">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-sm font-semibold tracking-wide text-white/90 uppercase">Contacto</h2>
+        <ul class="mt-4 space-y-2 text-sm text-white/70">
+          <li>{CONTACT.address}</li>
+          <li>
+            <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} class="hover:text-white">{CONTACT.phone}</a>
+          </li>
+          <li>
+            <a href={`mailto:${CONTACT.email}`} class="hover:text-white">{CONTACT.email}</a>
+          </li>
+          <li>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="font-semibold text-white underline underline-offset-2 hover:text-white/80">
+              Escríbenos por WhatsApp
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-semibold tracking-wide text-white/90 uppercase">Síguenos</h2>
+        <ul class="mt-4 space-y-2 text-sm text-white/70">
+          {socialLinks.map((social) => (
+            <li>
+              <a href={social.href} target="_blank" rel="noopener noreferrer" class="hover:text-white">
+                {social.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-center text-xs text-white/50 sm:text-left">
+      © {year} APADA del Ecuador. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
