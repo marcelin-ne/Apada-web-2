@@ -1,0 +1,128 @@
+{
+  "brand": {
+    "name": "APADA del Ecuador",
+    "fullName": "Asociación de Padres y Amigos para el Apoyo y Defensa de los Derechos de las Personas con Autismo",
+    "description": "Organización sin fines de lucro que genera conciencia, promueve la inclusión y brinda apoyo integral a personas con Trastorno del Espectro Autista (TEA), sus familias, cuidadores, profesionales y comunidad en general.",
+    "essenceStatement": "Somos padres que ayudan a padres en el camino del autismo.",
+    "toneOfVoice": "Humano, familiar, inclusivo, educativo, protector, claro y esperanzador. No médico ni frío. Enfoque de respeto, inclusión y derechos, nunca de miedo o lástima.",
+    "colors": {
+      "primary": "azul marino",
+      "secondary": "multicolor (morado, turquesa, amarillo, naranja) en el logotipo",
+      "accent": "gris (texto secundario 'del Ecuador')"
+    },
+    "logoPath": "docs/brand/assets/logo.png",
+    "visualReferences": [
+      "https://autismoecuador.com/servicios/",
+      "https://caminaconmigoec.org/",
+      "https://madretea.org/red-madretea-de-apoyo-al-autismo/"
+    ],
+    "keyMessages": [
+      "Inclusión real",
+      "Defensa de derechos",
+      "Apoyo entre familias",
+      "Educación y conciencia",
+      "Comunidad",
+      "Autonomía",
+      "Acompañamiento a cuidadores"
+    ]
+  },
+  "business": {
+    "siteGoal": "Centro digital de apoyo, información y comunidad. No es un sitio de venta directa.",
+    "monetization": "Organización sin fines de lucro. Incluye donaciones/apadrinamiento con sección de transparencia desde el MVP.",
+    "targetAudience": "Familias y cuidadores (prioridad), personas con autismo, docentes y profesionales, instituciones/universidades/aliados",
+    "competitors": [
+      "Autismo Ecuador (autismoecuador.com) - enfoque en servicios",
+      "Fundación Camina Conmigo (caminaconmigoec.org) - enfoque institucional, donaciones, transparencia",
+      "MadreTEA (madretea.org) - enfoque comunidad/red con filtros y podcast"
+    ]
+  },
+  "pages": [
+    {
+      "name": "Inicio",
+      "slug": "/",
+      "purpose": "Responder rápido qué es APADA, a quién ayuda y qué puede hacer el visitante",
+      "keyContent": "Hero emocional, rutas por tipo de usuario, servicios destacados, red de apoyo, eventos próximos, testimonios, recursos destacados",
+      "primaryCta": "Escríbenos por WhatsApp"
+    },
+    {
+      "name": "Autismo",
+      "slug": "/autismo",
+      "purpose": "Sección educativa sobre el TEA",
+      "keyContent": "Qué es el autismo, señales tempranas, diagnóstico, después del diagnóstico, terapias y apoyos, autismo en mujeres, derechos e inclusión (marco legal en Ecuador), mitos y verdades, preguntas frecuentes",
+      "primaryCta": "Ver recursos / Conocer derechos"
+    },
+    {
+      "name": "Servicios",
+      "slug": "/servicios",
+      "purpose": "Qué ofrece APADA directamente",
+      "keyContent": "Orientación familiar, evaluación y diagnóstico, terapias (lenguaje, ocupacional, psicología), apoyo conductual, apoyo escolar, capacitación docente, talleres para padres, asesoría legal",
+      "primaryCta": "Agendar orientación / WhatsApp"
+    },
+    {
+      "name": "Red de Apoyo",
+      "slug": "/red-de-apoyo",
+      "purpose": "Directorio de profesionales y centros",
+      "keyContent": "Buscador con filtros (ciudad, especialidad, modalidad, edad atendida), fichas de profesionales/centros, mapa, aviso de responsabilidad",
+      "primaryCta": "Buscar profesionales"
+    },
+    {
+      "name": "Recursos",
+      "slug": "/recursos",
+      "purpose": "Biblioteca práctica",
+      "keyContent": "Guías descargables para familias y docentes, artículos, videos, podcast 'Más Allá del Autismo', material de adaptaciones curriculares",
+      "primaryCta": "Descargar / Ver más"
+    },
+    {
+      "name": "Eventos",
+      "slug": "/eventos",
+      "purpose": "Actividades y comunidad presencial",
+      "keyContent": "Próximos eventos (ej. Caminata por la Concienciación sobre el Autismo), eventos pasados, galería, talleres artísticos, capacitaciones",
+      "primaryCta": "Inscribirme"
+    },
+    {
+      "name": "Nosotros",
+      "slug": "/nosotros",
+      "purpose": "Información institucional y transparencia",
+      "keyContent": "Historia, misión, objetivos, equipo, aliados y universidades, informes de transparencia, sección de donaciones/apadrinamiento",
+      "primaryCta": "Donar / Apoyar"
+    },
+    {
+      "name": "Contacto",
+      "slug": "/contacto",
+      "purpose": "Vía de contacto directa",
+      "keyContent": "Formulario, WhatsApp, mapa, dirección, correo, redes sociales, horarios de atención",
+      "primaryCta": "Contactar por WhatsApp"
+    }
+  ],
+  "phase2Pages": [
+    "Programas (apadrinamiento, becas terapéuticas, voluntariado, campañas)",
+    "Comunidad ampliada (newsletter, foro, historias extendidas)"
+  ],
+  "seo": {
+    "domain": "apadadelecuador.org",
+    "keywords": [
+      "autismo Ecuador",
+      "TEA Ecuador",
+      "apoyo autismo Quito",
+      "terapias autismo Ecuador",
+      "derechos personas con autismo Ecuador",
+      "asociación de autismo Ecuador",
+      "red de apoyo autismo",
+      "calificación de discapacidad Ecuador"
+    ],
+    "analyticsConfigured": false,
+    "socialLinks": {
+      "facebook": "",
+      "instagram": "",
+      "twitter": "",
+      "youtube": ""
+    }
+  },
+  "contact": {
+    "email": "info@apadadelecuador.org",
+    "phone": "+593996062600",
+    "whatsapp": "+593996062600",
+    "address": "Ulpiano Páez y Ramírez Dávalos, Edificio Eiffel, Quito, Ecuador"
+  },
+  "lastUpdated": "2026-07-06"
+}
