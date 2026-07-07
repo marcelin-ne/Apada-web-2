@@ -1,9 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import { HeartHandshake, Users, ArrowUpRight, Heart } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { WHATSAPP_URL } from '@/lib/nav';
+import SocialIcon from '@/components/icons/SocialIcon.astro';
+import { WHATSAPP_URL, SOCIAL_LINKS } from '@/lib/nav';
 import heroImage from '@/assets/generated/hero-inicio.png';
+import equipoImage from '@/assets/generated/nosotros-equipo.png';
+import ninoImage from '@/assets/generated/nosotros-nino.png';
+import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
+import servicioTerapias from '@/assets/generated/servicio-terapias.png';
+import servicioEscolar from '@/assets/generated/servicio-escolar.png';
 
 const eventosProximos = (await getCollection('eventos'))
   .filter((e) => e.data.status === 'proximo')
@@ -48,10 +55,30 @@ const audiencias = [
 ];
 
 const servicios = [
-  { titulo: 'Orientación familiar', texto: 'El primer paso, sin costo, para saber por dónde empezar.' },
-  { titulo: 'Evaluación y diagnóstico', texto: 'Acompañamiento antes, durante y después del proceso.' },
-  { titulo: 'Terapias', texto: 'Lenguaje, ocupacional y psicología, adaptadas a cada persona.' },
-  { titulo: 'Apoyo escolar', texto: 'Capacitación docente y adaptaciones curriculares.' },
+  {
+    titulo: 'Orientación familiar',
+    texto: 'El primer paso, sin costo, para saber por dónde empezar y sentir que no estás solo.',
+    etiqueta: 'Acompañamiento',
+    color: 'bg-brand-navy',
+    imagen: servicioOrientacion,
+    alt: 'Ilustración de una profesional conversando cálidamente con una madre en una oficina acogedora',
+  },
+  {
+    titulo: 'Terapias',
+    texto: 'Lenguaje, ocupacional y psicología, adaptadas al ritmo y las necesidades de cada persona.',
+    etiqueta: 'Terapias',
+    color: 'bg-brand-teal',
+    imagen: servicioTerapias,
+    alt: 'Ilustración de una terapeuta jugando con materiales de colores junto a un niño feliz',
+  },
+  {
+    titulo: 'Apoyo escolar',
+    texto: 'Capacitación docente y adaptaciones curriculares para una inclusión real en el aula.',
+    etiqueta: 'Educación',
+    color: 'bg-brand-green',
+    imagen: servicioEscolar,
+    alt: 'Ilustración de una docente acompañando a una niña en un aula inclusiva y luminosa',
+  },
 ];
 
 const testimonios = [
@@ -75,42 +102,142 @@ const testimonios = [
   description="APADA del Ecuador: apoyo, información y comunidad para familias, personas autistas, docentes y profesionales. Somos padres que ayudan a padres en el camino del autismo."
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-brand-navy px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
-    <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-      <div>
-        <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-          Somos padres que ayudan a padres en el camino del autismo
-        </h1>
-        <p class="mt-6 max-w-xl text-base text-white/80 sm:text-lg">
-          APADA del Ecuador acompaña a familias, personas con autismo, docentes y profesionales con
-          información, servicios y una red de apoyo real.
-        </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+  <section class="relative isolate flex min-h-[560px] items-center overflow-hidden sm:min-h-[620px] lg:min-h-[680px]">
+    <Image
+      src={heroImage}
+      alt=""
+      width={1600}
+      height={900}
+      class="absolute inset-0 -z-20 h-full w-full object-cover"
+      priority
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-brand-navy/95 via-brand-navy/85 to-brand-navy/70" />
+
+    <!-- Barra social vertical (solo desktop) -->
+    <div class="absolute inset-y-0 left-0 z-10 hidden w-14 flex-col items-center justify-center gap-6 xl:flex">
+      <span class="text-xs font-medium tracking-widest text-white/70 [writing-mode:vertical-rl]">Síguenos</span>
+      <div class="flex flex-col gap-4">
+        {SOCIAL_LINKS.map((social) => (
           <a
-            href={WHATSAPP_URL}
+            href={social.href}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center rounded-lg bg-brand-green px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-green-light"
+            aria-label={social.label}
+            class="text-white/80 transition-colors hover:text-white"
           >
-            Escríbenos por WhatsApp
+            <SocialIcon name={social.icon} class="h-4 w-4" />
           </a>
-          <a
-            href="/nosotros"
-            class="inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white/10"
-          >
-            Conoce a APADA
-          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="relative z-10 mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 xl:pl-24">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-white/25">
+        <Heart className="h-4 w-4" /> Acompañando a familias en todo el Ecuador
+      </span>
+
+      <h1 class="mt-6 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+        Somos padres que ayudan a padres en el camino del autismo
+      </h1>
+      <p class="mt-6 max-w-xl text-base text-white sm:text-lg">
+        APADA del Ecuador acompaña a familias, personas con autismo, docentes y profesionales con
+        información, servicios y una red de apoyo real.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand-green px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-green-light"
+        >
+          Escríbenos por WhatsApp
+          <ArrowUpRight className="h-4 w-4" />
+        </a>
+        <a
+          href="/nosotros"
+          class="inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white/10"
+        >
+          Conoce a APADA
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Nosotros -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div>
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          Sobre Nosotros
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+          Comprometidos con la inclusión, nuestro trabajo dedicado a la esperanza
+        </h2>
+        <p class="mt-4 text-muted-foreground">
+          Nacimos de la necesidad de un grupo de familias que decidieron unirse para que ninguna otra
+          familia enfrente el autismo sola. Hoy acompañamos, informamos y defendemos derechos en todo Ecuador.
+        </p>
+
+        <div class="mt-8 space-y-4">
+          <div class="flex gap-4 rounded-xl bg-brand-cream-dark p-5">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand-navy">
+              <HeartHandshake className="h-5 w-5" />
+            </span>
+            <div>
+              <h3 class="font-semibold text-foreground">Acompañamos paso a paso</h3>
+              <p class="mt-1 text-sm text-muted-foreground">
+                Desde el primer diagnóstico hasta la autonomía, caminamos junto a cada familia.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 rounded-xl bg-brand-cream-dark p-5">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand-navy">
+              <Users className="h-5 w-5" />
+            </span>
+            <div>
+              <h3 class="font-semibold text-foreground">Ponemos a las personas primero</h3>
+              <p class="mt-1 text-sm text-muted-foreground">
+                Guiados por el respeto y la inclusión, nunca desde la lástima.
+              </p>
+            </div>
+          </div>
         </div>
+
       </div>
 
-      <Image
-        src={heroImage}
-        alt="Ilustración cálida de una familia y su comunidad acompañándose en el camino del autismo"
-        width={800}
-        height={600}
-        class="w-full rounded-2xl motion-safe:animate-[fade-in_0.8s_ease-out]"
-        priority
-      />
+      <!-- Composición: imagen grande + columna angosta (misión, CTA, imagen pequeña) -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-[1.4fr_1fr]">
+        <Image
+          src={equipoImage}
+          alt="Ilustración del equipo de APADA colaborando en un ambiente cálido y acogedor"
+          width={800}
+          height={600}
+          class="h-full min-h-72 w-full rounded-2xl object-cover"
+        />
+
+        <div class="flex flex-col gap-5">
+          <p class="text-sm text-muted-foreground">
+            En el corazón de APADA hay una misión sencilla pero poderosa: brindar apoyo cercano y
+            defender los derechos de las personas con autismo y sus familias.
+          </p>
+          <a
+            href="/nosotros"
+            class="inline-flex w-fit items-center gap-2 rounded-full bg-brand-navy py-1.5 pr-1.5 pl-5 text-base font-semibold text-white transition-colors hover:bg-brand-navy/90"
+          >
+            Ser voluntario
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+              <ArrowUpRight className="h-4 w-4" />
+            </span>
+          </a>
+          <Image
+            src={ninoImage}
+            alt="Ilustración cálida de un niño abrazado por su madre, transmitiendo apoyo y esperanza"
+            width={480}
+            height={640}
+            class="min-h-0 w-full flex-1 rounded-2xl object-cover"
+          />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -136,17 +263,57 @@ const testimonios = [
   <!-- Servicios destacados -->
   <section class="bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Servicios destacados</h2>
-        <a href="/servicios" class="text-sm font-semibold text-primary hover:underline">Ver todos los servicios →</a>
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
+          Servicios
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+          Cómo acompañamos a las familias
+        </h2>
+        <p class="mt-4 text-muted-foreground">
+          Apoyo integral para personas con autismo y sus familias, desde la orientación inicial hasta la
+          inclusión escolar.
+        </p>
       </div>
-      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {servicios.map((s) => (
-          <div class="rounded-xl border border-border bg-card p-5">
-            <h3 class="font-semibold text-foreground">{s.titulo}</h3>
-            <p class="mt-2 text-sm text-muted-foreground">{s.texto}</p>
-          </div>
+          <a
+            href="/servicios"
+            class="group flex flex-col overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/5 transition-transform hover:-translate-y-1"
+          >
+            <Image
+              src={s.imagen}
+              alt={s.alt}
+              width={600}
+              height={450}
+              class="h-52 w-full object-cover"
+            />
+            <div class="flex flex-1 flex-col p-6">
+              <span class={`inline-flex w-fit rounded-md ${s.color} px-3 py-1 text-xs font-semibold text-white`}>
+                {s.etiqueta}
+              </span>
+              <h3 class="mt-4 text-xl font-bold text-foreground">{s.titulo}</h3>
+              <p class="mt-2 text-sm text-muted-foreground">{s.texto}</p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                Conocer más
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </a>
         ))}
+      </div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/servicios"
+          class="inline-flex items-center gap-2 rounded-full bg-brand-navy py-1.5 pr-1.5 pl-5 text-base font-semibold text-white transition-colors hover:bg-brand-navy/90"
+        >
+          Ver todos los servicios
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </a>
       </div>
     </div>
   </section>
