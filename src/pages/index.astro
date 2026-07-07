@@ -8,6 +8,9 @@ import { WHATSAPP_URL, SOCIAL_LINKS } from '@/lib/nav';
 import heroImage from '@/assets/generated/hero-inicio.png';
 import equipoImage from '@/assets/generated/nosotros-equipo.png';
 import ninoImage from '@/assets/generated/nosotros-nino.png';
+import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
+import servicioTerapias from '@/assets/generated/servicio-terapias.png';
+import servicioEscolar from '@/assets/generated/servicio-escolar.png';
 
 const eventosProximos = (await getCollection('eventos'))
   .filter((e) => e.data.status === 'proximo')
@@ -52,10 +55,30 @@ const audiencias = [
 ];
 
 const servicios = [
-  { titulo: 'Orientación familiar', texto: 'El primer paso, sin costo, para saber por dónde empezar.' },
-  { titulo: 'Evaluación y diagnóstico', texto: 'Acompañamiento antes, durante y después del proceso.' },
-  { titulo: 'Terapias', texto: 'Lenguaje, ocupacional y psicología, adaptadas a cada persona.' },
-  { titulo: 'Apoyo escolar', texto: 'Capacitación docente y adaptaciones curriculares.' },
+  {
+    titulo: 'Orientación familiar',
+    texto: 'El primer paso, sin costo, para saber por dónde empezar y sentir que no estás solo.',
+    etiqueta: 'Acompañamiento',
+    color: 'bg-brand-navy',
+    imagen: servicioOrientacion,
+    alt: 'Ilustración de una profesional conversando cálidamente con una madre en una oficina acogedora',
+  },
+  {
+    titulo: 'Terapias',
+    texto: 'Lenguaje, ocupacional y psicología, adaptadas al ritmo y las necesidades de cada persona.',
+    etiqueta: 'Terapias',
+    color: 'bg-brand-teal',
+    imagen: servicioTerapias,
+    alt: 'Ilustración de una terapeuta jugando con materiales de colores junto a un niño feliz',
+  },
+  {
+    titulo: 'Apoyo escolar',
+    texto: 'Capacitación docente y adaptaciones curriculares para una inclusión real en el aula.',
+    etiqueta: 'Educación',
+    color: 'bg-brand-green',
+    imagen: servicioEscolar,
+    alt: 'Ilustración de una docente acompañando a una niña en un aula inclusiva y luminosa',
+  },
 ];
 
 const testimonios = [
@@ -240,17 +263,57 @@ const testimonios = [
   <!-- Servicios destacados -->
   <section class="bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Servicios destacados</h2>
-        <a href="/servicios" class="text-sm font-semibold text-primary hover:underline">Ver todos los servicios →</a>
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
+          Servicios
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+          Cómo acompañamos a las familias
+        </h2>
+        <p class="mt-4 text-muted-foreground">
+          Apoyo integral para personas con autismo y sus familias, desde la orientación inicial hasta la
+          inclusión escolar.
+        </p>
       </div>
-      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {servicios.map((s) => (
-          <div class="rounded-xl border border-border bg-card p-5">
-            <h3 class="font-semibold text-foreground">{s.titulo}</h3>
-            <p class="mt-2 text-sm text-muted-foreground">{s.texto}</p>
-          </div>
+          <a
+            href="/servicios"
+            class="group flex flex-col overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/5 transition-transform hover:-translate-y-1"
+          >
+            <Image
+              src={s.imagen}
+              alt={s.alt}
+              width={600}
+              height={450}
+              class="h-52 w-full object-cover"
+            />
+            <div class="flex flex-1 flex-col p-6">
+              <span class={`inline-flex w-fit rounded-md ${s.color} px-3 py-1 text-xs font-semibold text-white`}>
+                {s.etiqueta}
+              </span>
+              <h3 class="mt-4 text-xl font-bold text-foreground">{s.titulo}</h3>
+              <p class="mt-2 text-sm text-muted-foreground">{s.texto}</p>
+              <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                Conocer más
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </a>
         ))}
+      </div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/servicios"
+          class="inline-flex items-center gap-2 rounded-full bg-brand-navy py-1.5 pr-1.5 pl-5 text-base font-semibold text-white transition-colors hover:bg-brand-navy/90"
+        >
+          Ver todos los servicios
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </a>
       </div>
     </div>
   </section>
