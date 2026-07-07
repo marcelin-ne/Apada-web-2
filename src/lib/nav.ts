@@ -22,3 +22,16 @@ export const CONTACT = {
   phone: '+593 99 606 2600',
   email: 'info@apadadelecuador.org',
 };
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  icon: 'facebook' | 'instagram' | 'twitter' | 'youtube';
+}
+
+export const SOCIAL_LINKS: SocialLink[] = [
+  { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook' },
+  { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' },
+  { label: 'Twitter / X', href: 'https://twitter.com', icon: 'twitter' },
+  { label: 'YouTube', href: 'https://youtube.com', icon: 'youtube' },
+];

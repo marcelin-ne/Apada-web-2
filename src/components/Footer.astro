@@ -1,16 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '@/assets/brand/logo.png';
-import { NAV_ITEMS, CONTACT, WHATSAPP_URL } from '@/lib/nav';
+import { NAV_ITEMS, CONTACT, WHATSAPP_URL, SOCIAL_LINKS } from '@/lib/nav';
 
 const year = new Date().getFullYear();
-
-const socialLinks = [
-  { label: 'Facebook', href: 'https://facebook.com' },
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'Twitter / X', href: 'https://twitter.com' },
-  { label: 'YouTube', href: 'https://youtube.com' },
-];
 ---
 
 <footer class="border-t border-border bg-brand-navy text-white">
@@ -57,7 +50,7 @@ const socialLinks = [
       <div>
         <h2 class="text-sm font-semibold tracking-wide text-white/90 uppercase">Síguenos</h2>
         <ul class="mt-4 space-y-2 text-sm text-white/70">
-          {socialLinks.map((social) => (
+          {SOCIAL_LINKS.map((social) => (
             <li>
               <a href={social.href} target="_blank" rel="noopener noreferrer" class="hover:text-white">
                 {social.label}
