@@ -40,7 +40,7 @@ const pasados = eventos
         {proximos.map((evento) => (
           <article class="rounded-xl border border-border bg-card p-6">
             <p class="text-sm font-medium text-brand-orange">
-              {evento.data.date.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {evento.data.date.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
             </p>
             <h3 class="mt-1 text-lg font-semibold text-foreground">{evento.data.title}</h3>
             <p class="mt-1 text-sm text-muted-foreground">{evento.data.location}</p>
@@ -71,7 +71,7 @@ const pasados = eventos
           {pasados.map((evento) => (
             <article class="rounded-xl border border-border bg-card p-6 opacity-90">
               <p class="text-sm font-medium text-muted-foreground">
-                {evento.data.date.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric' })}
+                {evento.data.date.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
               </p>
               <h3 class="mt-1 text-lg font-semibold text-foreground">{evento.data.title}</h3>
               <p class="mt-1 text-sm text-muted-foreground">{evento.data.location}</p>

@@ -2,6 +2,7 @@
 title: "Taller para padres: regulación emocional"
 status: "proximo"
 date: 2026-08-15
+time: "10:00 AM"
 location: "Sede APADA, Quito (Edificio Eiffel)"
 description: "Un taller práctico para padres y cuidadores sobre estrategias de regulación emocional en casa."
 ctaLabel: "Inscribirme"
