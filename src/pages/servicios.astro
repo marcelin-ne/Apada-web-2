@@ -1,57 +1,116 @@
 ---
+import { Image } from 'astro:assets';
+import {
+  HeartHandshake,
+  ClipboardList,
+  MessageCircle,
+  Puzzle,
+  Brain,
+  Target,
+  GraduationCap,
+  Presentation,
+  UsersRound,
+  Scale,
+  ArrowRight,
+  ArrowUpRight,
+  BookOpen,
+  FolderOpen,
+} from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
 import { WHATSAPP_URL } from '@/lib/nav';
+import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
+import servicioTerapias from '@/assets/generated/servicio-terapias.png';
+import servicioEscolar from '@/assets/generated/servicio-escolar.png';
+import equipoImage from '@/assets/generated/nosotros-equipo.png';
+import ninoImage from '@/assets/generated/nosotros-nino.png';
+import heroImage from '@/assets/generated/hero-inicio.png';
+import caminataImage from '@/assets/generated/eventos-caminata-v2.png';
+
+const navCards = [
+  {
+    titulo: 'Conoce el autismo',
+    texto: 'Información clara sobre el TEA, señales, diagnóstico y derechos.',
+    href: '/autismo',
+    icon: BookOpen,
+    imagen: heroImage,
+  },
+  {
+    titulo: 'Encuentra apoyo',
+    texto: 'Directorio de profesionales y centros con filtros por ciudad.',
+    href: '/red-de-apoyo',
+    icon: UsersRound,
+    imagen: equipoImage,
+  },
+  {
+    titulo: 'Explora recursos',
+    texto: 'Guías descargables, videos y el podcast de APADA.',
+    href: '/recursos',
+    icon: FolderOpen,
+    imagen: servicioEscolar,
+  },
+];
 
 const servicios = [
   {
     titulo: 'Orientación familiar',
     texto: 'Un primer espacio de escucha para entender qué está pasando y cuáles son los siguientes pasos, sin costo.',
-    color: 'bg-brand-navy',
+    icon: HeartHandshake,
+    imagen: servicioOrientacion,
   },
   {
     titulo: 'Evaluación y diagnóstico',
     texto: 'Acompañamiento antes, durante y después del proceso de evaluación, junto a especialistas de confianza.',
-    color: 'bg-brand-blue',
+    icon: ClipboardList,
+    imagen: ninoImage,
   },
   {
     titulo: 'Terapia de lenguaje',
     texto: 'Apoyo en comunicación verbal y no verbal, adaptado a la edad y necesidades de cada persona.',
-    color: 'bg-brand-teal',
+    icon: MessageCircle,
+    imagen: servicioTerapias,
   },
   {
     titulo: 'Terapia ocupacional',
     texto: 'Trabajo en integración sensorial, motricidad y habilidades para la vida diaria.',
-    color: 'bg-brand-teal',
+    icon: Puzzle,
+    imagen: servicioTerapias,
   },
   {
     titulo: 'Psicología',
     texto: 'Acompañamiento emocional tanto para la persona autista como para su familia.',
-    color: 'bg-brand-purple',
+    icon: Brain,
+    imagen: ninoImage,
   },
   {
     titulo: 'Apoyo conductual',
-    texto: 'Estrategias positivas para el desarrollo de habilidades y autonomía.',
-    color: 'bg-brand-purple',
+    texto: 'Estrategias positivas para el desarrollo de habilidades y la autonomía.',
+    icon: Target,
+    imagen: servicioOrientacion,
   },
   {
     titulo: 'Apoyo escolar',
     texto: 'Acompañamiento a instituciones educativas para una inclusión real en el aula.',
-    color: 'bg-brand-orange',
+    icon: GraduationCap,
+    imagen: servicioEscolar,
   },
   {
     titulo: 'Capacitación docente',
     texto: 'Talleres prácticos sobre adaptaciones curriculares y manejo de aula.',
-    color: 'bg-brand-orange',
+    icon: Presentation,
+    imagen: servicioEscolar,
   },
   {
     titulo: 'Talleres para padres',
     texto: 'Espacios de formación y contención entre familias que viven procesos similares.',
-    color: 'bg-brand-green',
+    icon: UsersRound,
+    imagen: equipoImage,
   },
   {
     titulo: 'Asesoría legal',
     texto: 'Orientación sobre calificación de discapacidad y derechos vigentes en Ecuador.',
-    color: 'bg-brand-green',
+    icon: Scale,
+    imagen: servicioOrientacion,
   },
 ];
 ---
@@ -60,43 +119,137 @@ const servicios = [
   title="Servicios"
   description="Orientación familiar, evaluación y diagnóstico, terapias, apoyo escolar, capacitación docente y asesoría legal — servicios de APADA del Ecuador."
 >
-  <section class="bg-brand-navy px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-3xl font-bold text-white sm:text-4xl">Nuestros servicios</h1>
-      <p class="mt-4 text-base text-white/80 sm:text-lg">
-        Apoyo integral para personas con TEA y sus familias, desde la orientación inicial hasta la inclusión escolar.
-      </p>
-    </div>
-  </section>
+  <PageBanner
+    title="Nuestros servicios"
+    subtitle="Apoyo integral para personas con TEA y sus familias, desde la orientación inicial hasta la inclusión escolar."
+    image={servicioOrientacion}
+    breadcrumb="Servicios"
+  />
 
-  <section class="px-4 py-14 sm:px-6 lg:px-8">
+  <section class="bg-white px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {servicios.map((s) => (
-          <div class="rounded-xl border border-border bg-card p-6">
-            <span class={`inline-block h-2 w-10 rounded-full ${s.color}`} aria-hidden="true"></span>
-            <h2 class="mt-4 font-semibold text-foreground">{s.titulo}</h2>
-            <p class="mt-2 text-sm text-muted-foreground">{s.texto}</p>
-          </div>
-        ))}
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {servicios.map((s) => {
+          const Icon = s.icon;
+          return (
+            <article class="group flex flex-col rounded-2xl bg-brand-cream-dark p-6 transition duration-200 hover:bg-brand-yellow motion-safe:hover:-translate-y-1">
+              <div class="flex items-start justify-between gap-4">
+                <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-brand-navy">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <Image
+                  src={s.imagen}
+                  alt=""
+                  width={220}
+                  height={150}
+                  class="h-20 w-28 shrink-0 rounded-xl object-cover"
+                />
+              </div>
+
+              <h2 class="mt-5 text-lg font-bold text-foreground transition-colors group-hover:text-brand-navy">
+                {s.titulo}
+              </h2>
+              <p class="mt-2 flex-1 text-sm text-muted-foreground transition-colors group-hover:text-brand-navy/80">
+                {s.texto}
+              </p>
+
+              <a
+                href="/contacto"
+                class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors group-hover:text-brand-navy"
+              >
+                Leer más
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <section class="bg-brand-cream-dark px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-      <h2 class="text-2xl font-bold text-foreground sm:text-3xl">¿Por dónde empezar?</h2>
-      <p class="text-muted-foreground">
-        Agenda una orientación inicial sin costo y te ayudamos a identificar el mejor camino a seguir.
+  <!-- Explora otras secciones del sitio -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <div class="mx-auto mb-10 max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          Sigue explorando
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl">Descubre más de APADA</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {navCards.map((c) => {
+          const Icon = c.icon;
+          return (
+            <a
+              href={c.href}
+              class="group relative isolate flex min-h-64 flex-col justify-end overflow-hidden rounded-2xl p-6 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy focus-visible:ring-offset-2"
+            >
+              <Image
+                src={c.imagen}
+                alt=""
+                width={520}
+                height={400}
+                class="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-105"
+              />
+              <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/45 to-black/20"></div>
+
+              <span class="absolute top-5 left-5 flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-navy">
+                <Icon className="h-5 w-5" />
+              </span>
+
+              <h3 class="text-xl font-bold">{c.titulo}</h3>
+              <p class="mt-1 text-sm text-white/85">{c.texto}</p>
+              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold">
+                Leer más
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner de donaciones -->
+  <section class="px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-3xl px-6 py-16 text-center sm:px-12 sm:py-20">
+      <Image
+        src={caminataImage}
+        alt=""
+        width={1400}
+        height={600}
+        class="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 -z-10 bg-brand-navy/90"></div>
+
+      <h2 class="mx-auto max-w-2xl text-2xl font-bold text-white sm:text-4xl">
+        Tu ayuda puede cambiar vidas
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-white/85">
+        Cada aporte, por pequeño que sea, hace una diferencia real en la vida de las familias que
+        acompañamos. Súmate y apoya el trabajo de APADA.
       </p>
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center rounded-lg bg-brand-green px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-green-light"
-      >
-        Agendar orientación por WhatsApp
-      </a>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-brand-yellow py-2 pr-2 pl-6 text-base font-semibold text-brand-navy transition-transform motion-safe:hover:-translate-y-0.5"
+        >
+          Donar ahora
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </a>
+        <a
+          href="/nosotros#donaciones"
+          class="text-sm font-semibold text-white underline underline-offset-4 transition-colors hover:text-white/80"
+        >
+          Conoce cómo se usan los fondos
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

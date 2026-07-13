@@ -2,6 +2,8 @@
 title: "Caminata por la Concienciación sobre el Autismo 2026"
 status: "proximo"
 date: 2026-09-06
+time: "08:00 AM"
+featured: true
 location: "Parque La Carolina, Quito"
 description: "Nuestra caminata anual para visibilizar el autismo y recaudar fondos para los programas de apoyo de APADA. Actividades para toda la familia, talleres artísticos y feria de aliados."
 ctaLabel: "Inscribirme"

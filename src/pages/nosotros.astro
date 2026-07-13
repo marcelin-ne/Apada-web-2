@@ -1,112 +1,232 @@
 ---
 import { Image } from 'astro:assets';
+import { Check, ArrowUpRight } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
+import MisionVisionTabs from '@/components/nosotros/MisionVisionTabs.tsx';
 import { WHATSAPP_URL } from '@/lib/nav';
+import heroImage from '@/assets/generated/hero-inicio.png';
 import equipoImage from '@/assets/generated/nosotros-equipo.png';
+import ninoImage from '@/assets/generated/nosotros-nino.png';
+import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
+import caminataImage from '@/assets/generated/eventos-caminata-v2.png';
 
-const aliados = ['Autismo Ecuador', 'Universidades aliadas', 'Fundaciones aliadas', 'Empresas donantes'];
+const listaSobreNosotros = [
+  'Súmate a nuestra misión y haz la diferencia',
+  'Transformamos vidas y comunidades',
+  'Defendemos los derechos de las personas con autismo',
+];
+
+const listaMision = [
+  'Acompañamiento centrado en las familias',
+  'Enfoque humano, desde el respeto y nunca la lástima',
+  'Defensa activa de los derechos e inclusión',
+  'Equipo con experiencia y verdadero compromiso',
+];
+
+const tabs = [
+  {
+    label: 'Misión',
+    paragraphs: [
+      'Apoyar, informar y defender los derechos de las personas con autismo y sus familias en Ecuador, desde el respeto y la inclusión real.',
+      'Somos padres que ayudan a padres en el camino del autismo.',
+    ],
+  },
+  {
+    label: 'Visión',
+    paragraphs: [
+      'Un Ecuador donde cada persona con autismo viva con dignidad, autonomía e inclusión real, acompañada por una comunidad que la valora.',
+      'Guiados por la compasión y la integridad, trabajamos junto a familias, aliados y voluntarios para hacerlo realidad.',
+    ],
+  },
+  {
+    label: 'Historia',
+    paragraphs: [
+      'APADA del Ecuador nació de la necesidad de un grupo de familias que, tras vivir el proceso de diagnóstico de sus hijos, decidieron unirse para que ninguna otra familia lo enfrente sola.',
+      'Hoy somos una organización sin fines de lucro que genera conciencia, promueve la inclusión y brinda apoyo integral en todo el país.',
+    ],
+  },
+];
+
+const estadisticas = [
+  { valor: '+500', etiqueta: 'Familias acompañadas', destacado: false },
+  { valor: '8', etiqueta: 'Servicios de apoyo', destacado: true },
+  { valor: '3', etiqueta: 'Ciudades en la red', destacado: false },
+  { valor: '100%', etiqueta: 'Sin fines de lucro', destacado: false },
+];
 ---
 
 <BaseLayout
   title="Nosotros"
-  description="Historia, misión, equipo, aliados y transparencia de APADA del Ecuador. Conoce cómo apoyar a la organización."
+  description="Historia, misión, visión y transparencia de APADA del Ecuador. Conoce cómo acompañamos a las familias y cómo apoyar a la organización."
 >
-  <section class="bg-brand-navy px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-3xl font-bold text-white sm:text-4xl">Nosotros</h1>
-      <p class="mt-4 text-base text-white/80 sm:text-lg">
-        Somos padres que ayudan a padres en el camino del autismo.
-      </p>
-    </div>
-  </section>
+  <PageBanner
+    title="Sobre Nosotros"
+    subtitle="Somos padres que ayudan a padres en el camino del autismo."
+    image={equipoImage}
+    breadcrumb="Nosotros"
+  />
 
-  <section id="historia" class="scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-5xl grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
-      <div>
-        <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Nuestra historia</h2>
-        <p class="mt-4 text-foreground/90">
-          APADA del Ecuador (Asociación de Padres y Amigos para el Apoyo y Defensa de los Derechos de las Personas
-          con Autismo) nació de la necesidad de un grupo de familias que, tras vivir el proceso de diagnóstico de
-          sus hijos, decidieron unirse para que ninguna otra familia lo enfrente sola.
-        </p>
-        <p class="mt-4 text-foreground/90">
-          Hoy somos una organización sin fines de lucro que genera conciencia, promueve la inclusión y brinda apoyo
-          integral a personas con Trastorno del Espectro Autista, sus familias, cuidadores, profesionales y la
-          comunidad en general.
-        </p>
+  <!-- Componente 1: Sobre Nosotros (collage + checklist) -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
+      <div class="flex flex-col gap-6">
+        <div>
+          <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+            Sobre Nosotros
+          </span>
+          <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+            Comunidades más fuertes, una familia a la vez
+          </h2>
+          <p class="mt-4 text-muted-foreground">
+            Nuestra organización nace de una creencia simple pero poderosa: juntos podemos generar un cambio
+            duradero. Con compasión, dedicación y el apoyo de la comunidad, acompañamos a cada familia.
+          </p>
+        </div>
+        <Image
+          src={servicioOrientacion}
+          alt="Ilustración de una orientadora conversando con una madre"
+          width={700}
+          height={440}
+          class="w-full rounded-2xl object-cover"
+        />
+        <Image
+          src={equipoImage}
+          alt="Ilustración del equipo de APADA colaborando"
+          width={700}
+          height={360}
+          class="max-h-56 w-full rounded-2xl object-cover"
+        />
       </div>
-      <Image
-        src={equipoImage}
-        alt="Ilustración del equipo de APADA colaborando en un ambiente cálido y acogedor"
-        width={700}
-        height={525}
-        class="w-full rounded-2xl"
-      />
-    </div>
-  </section>
 
-  <section id="mision" class="scroll-mt-20 bg-brand-cream-dark px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2">
-      <div>
-        <h2 class="text-xl font-bold text-foreground">Misión</h2>
-        <p class="mt-3 text-foreground/90">
-          Apoyar, informar y defender los derechos de las personas con autismo y sus familias en Ecuador, desde el
-          respeto y la inclusión real.
+      <div class="flex flex-col gap-6">
+        <Image
+          src={heroImage}
+          alt="Ilustración de familias y comunidad acompañándose"
+          width={640}
+          height={720}
+          class="min-h-64 w-full flex-1 rounded-2xl object-cover"
+        />
+        <p class="text-muted-foreground">
+          Desde brindar recursos esenciales hasta acompañar procesos que cambian vidas, cada esfuerzo se dirige a
+          construir un entorno más justo e inclusivo para las personas con autismo y quienes las rodean.
         </p>
-      </div>
-      <div>
-        <h2 class="text-xl font-bold text-foreground">Objetivos</h2>
-        <ul class="mt-3 list-inside list-disc space-y-1 text-foreground/90">
-          <li>Generar conciencia sobre el autismo en la sociedad ecuatoriana.</li>
-          <li>Brindar servicios de apoyo directo a familias y personas autistas.</li>
-          <li>Conectar a la comunidad con una red de profesionales confiable.</li>
-          <li>Defender activamente los derechos legales de las personas con TEA.</li>
+        <ul class="space-y-3">
+          {listaSobreNosotros.map((item) => (
+            <li class="flex items-center gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
+                <Check className="h-4 w-4" />
+              </span>
+              <span class="font-semibold text-foreground">{item}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="aliados" class="scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-5xl">
-      <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Aliados y universidades</h2>
-      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {aliados.map((nombre) => (
-          <div class="flex h-20 items-center justify-center rounded-lg border border-border bg-card px-4 text-center text-sm text-muted-foreground">
-            {nombre}
-          </div>
-        ))}
+  <!-- Componente 2: Nuestra Misión -->
+  <section id="mision" class="scroll-mt-24 bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+      <Image
+        src={ninoImage}
+        alt="Ilustración cálida de un niño abrazado por su madre"
+        width={560}
+        height={640}
+        class="w-full rounded-2xl object-cover"
+      />
+      <div>
+        <h2 class="text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Nuestra misión</h2>
+        <p class="mt-4 text-muted-foreground">
+          Nos dedicamos a acompañar, informar y defender los derechos de las personas con autismo y sus familias
+          en Ecuador, desde el respeto y la inclusión real, asegurando que nadie enfrente el camino en soledad.
+        </p>
+        <p class="mt-4 text-muted-foreground">
+          A través de programas de orientación, terapias y capacitación, junto al apoyo de una comunidad
+          comprometida, trabajamos por un impacto real y duradero.
+        </p>
+        <ul class="mt-6 space-y-4">
+          {listaMision.map((item) => (
+            <li class="flex items-center gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
+                <Check className="h-4 w-4" />
+              </span>
+              <span class="font-semibold text-foreground">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <section id="transparencia" class="scroll-mt-20 bg-brand-cream-dark px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl">
-      <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Transparencia</h2>
-      <p class="mt-4 text-foreground/90">
-        Como organización sin fines de lucro, publicamos informes periódicos sobre el uso de fondos y el impacto
-        de nuestros programas. Nuestra confianza se construye con hechos, no solo con palabras.
-      </p>
-      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm font-semibold text-primary hover:underline">
-        Solicitar informe de transparencia →
-      </a>
+  <!-- Componente 3: Misión y Visión (tabs) -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+      <Image
+        src={caminataImage}
+        alt="Ilustración de familias caminando juntas en un evento de concienciación"
+        width={640}
+        height={560}
+        class="w-full rounded-2xl object-cover"
+      />
+      <div>
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          Misión y Visión
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+          Nuestro propósito: misión y visión para un mejor futuro
+        </h2>
+        <p class="mt-4 text-muted-foreground">
+          Llevamos apoyo, información y oportunidades a las familias que más lo necesitan, empoderando a las
+          personas con autismo para construir un futuro más autónomo e incluido.
+        </p>
+        <div class="mt-6">
+          <MisionVisionTabs client:visible tabs={tabs} />
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="donaciones" class="scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto flex max-w-3xl flex-col items-center gap-6 rounded-2xl bg-brand-green p-8 text-center text-white sm:p-12">
-      <h2 class="text-2xl font-bold sm:text-3xl">Apadrina o dona</h2>
-      <p class="max-w-xl text-white">
-        Tu aporte sostiene nuestros programas de orientación, terapias y capacitación para familias que no pueden
-        acceder a ellos por su cuenta.
-      </p>
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-brand-green transition-colors hover:bg-white/90"
-      >
-        Quiero donar o apadrinar
-      </a>
+  <!-- Componente 4: Estadísticas / Donaciones -->
+  <section id="donaciones" class="scroll-mt-24 bg-brand-green px-4 py-16 text-white sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+      <div>
+        <span class="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-white/20">
+          Nuestro impacto
+        </span>
+        <h2 class="mt-4 text-2xl font-bold sm:text-3xl lg:text-4xl">
+          Nuestra mayor ambición es ayudar a las personas
+        </h2>
+        <p class="mt-4 text-white/85">
+          Nuestro impacto se refleja en la comunidad que hemos construido: cada número representa familias
+          acompañadas y futuros con más oportunidades.
+        </p>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-brand-yellow py-1.5 pr-1.5 pl-5 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
+        >
+          Donar ahora
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 sm:gap-5">
+        {estadisticas.map((e) => (
+          <div
+            class:list={[
+              'flex flex-col items-center justify-center rounded-2xl px-4 py-8 text-center',
+              e.destacado ? 'bg-brand-yellow text-brand-navy' : 'bg-white text-foreground',
+            ]}
+          >
+            <span class="text-3xl font-bold sm:text-4xl">{e.valor}</span>
+            <span class="mt-2 text-sm font-medium">{e.etiqueta}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>

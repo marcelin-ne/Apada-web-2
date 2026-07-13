@@ -7,40 +7,66 @@ import { NAV_ITEMS, WHATSAPP_URL } from '@/lib/nav';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
-  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-    <a href="/" class="flex shrink-0 items-center gap-2" aria-label="APADA del Ecuador — Inicio">
-      <Image src={logo} alt="APADA del Ecuador" height={40} width={73} class="h-9 w-auto sm:h-10" />
-    </a>
-
-    <nav aria-label="Navegación principal" class="hidden md:flex md:items-center md:gap-1 lg:gap-2">
-      {NAV_ITEMS.map((item) => {
-        const isActive = currentPath === item.href;
-        return (
-          <a
-            href={item.href}
-            aria-current={isActive ? 'page' : undefined}
-            class:list={[
-              'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-              isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary',
-            ]}
-          >
-            {item.label}
-          </a>
-        );
-      })}
-    </nav>
-
-    <div class="flex items-center gap-2">
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden items-center rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-green-light md:inline-flex"
-      >
-        Escríbenos por WhatsApp
+<header
+  id="site-header"
+  data-scrolled="false"
+  class="group fixed inset-x-0 top-0 z-50 transition-colors duration-300 group-data-[scrolled=true]:border-b group-data-[scrolled=true]:border-border data-[scrolled=true]:border-b data-[scrolled=true]:border-border data-[scrolled=true]:bg-background/90 data-[scrolled=true]:shadow-sm data-[scrolled=true]:backdrop-blur"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div
+      class="my-3 flex h-14 items-center justify-between gap-4 rounded-full bg-white/10 px-3 text-white ring-1 ring-white/20 backdrop-blur-md transition-all duration-300 sm:px-5 group-data-[scrolled=true]:my-0 group-data-[scrolled=true]:h-16 group-data-[scrolled=true]:rounded-none group-data-[scrolled=true]:bg-transparent group-data-[scrolled=true]:text-foreground group-data-[scrolled=true]:ring-0 group-data-[scrolled=true]:backdrop-blur-none"
+    >
+      <a href="/" class="flex shrink-0 items-center gap-2" aria-label="APADA del Ecuador — Inicio">
+        <Image
+          src={logo}
+          alt="APADA del Ecuador"
+          height={40}
+          width={73}
+          class="h-9 w-auto rounded-md bg-white/90 px-1.5 py-1 sm:h-10 group-data-[scrolled=true]:bg-transparent group-data-[scrolled=true]:p-0"
+        />
       </a>
-      <MobileMenu client:idle items={NAV_ITEMS} currentPath={currentPath} whatsappUrl={WHATSAPP_URL} />
+
+      <nav aria-label="Navegación principal" class="hidden md:flex md:items-center md:gap-1 lg:gap-2">
+        {NAV_ITEMS.map((item) => {
+          const isActive = currentPath === item.href;
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'rounded-md px-3 py-2 text-sm font-medium text-current/85 transition-colors hover:text-current',
+                isActive && 'text-current underline decoration-2 underline-offset-8',
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden items-center rounded-full bg-brand-green px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-green-light md:inline-flex"
+        >
+          Escríbenos por WhatsApp
+        </a>
+        <MobileMenu client:idle items={NAV_ITEMS} currentPath={currentPath} whatsappUrl={WHATSAPP_URL} />
+      </div>
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    const onScroll = () => {
+      header.dataset.scrolled = window.scrollY > 12 ? 'true' : 'false';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
