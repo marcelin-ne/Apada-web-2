@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
+import bannerImage from '@/assets/generated/hero-inicio.png';
 
 const entries = (await getCollection('autismo')).sort((a, b) => a.data.order - b.data.order);
 
@@ -13,15 +15,12 @@ const rendered = await Promise.all(
   title="Autismo"
   description="Qué es el autismo, señales tempranas, diagnóstico, terapias, derechos e inclusión, mitos y verdades — información clara sobre el TEA."
 >
-  <section class="bg-brand-navy px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-3xl font-bold text-white sm:text-4xl">Entendiendo el autismo</h1>
-      <p class="mt-4 text-base text-white/80 sm:text-lg">
-        Información clara y respetuosa sobre el Trastorno del Espectro Autista (TEA), pensada para familias,
-        docentes y profesionales.
-      </p>
-    </div>
-  </section>
+  <PageBanner
+    title="Entendiendo el autismo"
+    subtitle="Información clara y respetuosa sobre el Trastorno del Espectro Autista (TEA), pensada para familias, docentes y profesionales."
+    image={bannerImage}
+    breadcrumb="Autismo"
+  />
 
   <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
     {rendered.map(({ entry, Content }) => (
