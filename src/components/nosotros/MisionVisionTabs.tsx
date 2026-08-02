@@ -30,7 +30,7 @@ export default function MisionVisionTabs({ tabs }: Props) {
             onClick={() => setActive(i)}
             className={`-mb-px min-h-11 border-b-2 px-1 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy ${
               active === i
-                ? 'border-brand-teal text-brand-teal'
+                ? 'border-brand-blue text-brand-blue'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >

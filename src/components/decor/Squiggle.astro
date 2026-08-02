@@ -1,0 +1,42 @@
+---
+interface Props {
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  color?: 'white' | 'sky';
+  class?: string;
+}
+
+const { position = 'top-left', color = 'white', class: className = '' } = Astro.props;
+
+const positionClass: Record<string, string> = {
+  'top-left': '-top-10 -left-10 rotate-0',
+  'top-right': '-top-10 -right-10 rotate-90 scale-x-[-1]',
+  'bottom-left': '-bottom-10 -left-10 -rotate-90',
+  'bottom-right': '-bottom-10 -right-10 rotate-180',
+};
+
+const colorClass: Record<string, string> = {
+  white: 'text-white/25',
+  sky: 'text-brand-blue/15',
+};
+---
+
+<svg
+  aria-hidden="true"
+  focusable="false"
+  viewBox="0 0 320 320"
+  class:list={[
+    'pointer-events-none absolute z-0 h-56 w-56 sm:h-72 sm:w-72',
+    positionClass[position],
+    colorClass[color],
+    className,
+  ]}
+>
+  <path
+    d="M14 302 C14 240 76 258 76 198 C76 140 16 152 16 96 C16 54 62 58 66 20"
+    stroke="currentColor"
+    stroke-width="6"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <circle cx="196" cy="150" r="34" stroke="currentColor" stroke-width="6" fill="none" />
+</svg>

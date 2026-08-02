@@ -35,6 +35,19 @@ const recursos = defineCollection({
   }),
 });
 
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    category: z.enum(['historias', 'concienciacion', 'educacion', 'eventos', 'derechos']),
+    author: z.string(),
+    coverImage: z.string(),
+    publishDate: z.coerce.date(),
+    featured: z.boolean().default(false),
+  }),
+});
+
 const eventos = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/eventos' }),
   schema: z.object({
@@ -51,4 +64,4 @@ const eventos = defineCollection({
   }),
 });
 
-export const collections = { autismo, recursos, eventos };
+export const collections = { autismo, recursos, eventos, blog };

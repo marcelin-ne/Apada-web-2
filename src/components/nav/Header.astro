@@ -1,6 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '@/assets/brand/logo.png';
+import { MessageCircle } from 'lucide-react';
+import logoWhite from '@/assets/brand/logo-white.png';
+import logoNavy from '@/assets/brand/logo-navy.png';
+import DesktopNav from '@/components/nav/DesktopNav.tsx';
 import MobileMenu from '@/components/nav/MobileMenu.tsx';
 import { NAV_ITEMS, WHATSAPP_URL } from '@/lib/nav';
 
@@ -16,42 +19,34 @@ const currentPath = Astro.url.pathname;
     <div
       class="my-3 flex h-14 items-center justify-between gap-4 rounded-full bg-white/10 px-3 text-white ring-1 ring-white/20 backdrop-blur-md transition-all duration-300 sm:px-5 group-data-[scrolled=true]:my-0 group-data-[scrolled=true]:h-16 group-data-[scrolled=true]:rounded-none group-data-[scrolled=true]:bg-transparent group-data-[scrolled=true]:text-foreground group-data-[scrolled=true]:ring-0 group-data-[scrolled=true]:backdrop-blur-none"
     >
-      <a href="/" class="flex shrink-0 items-center gap-2" aria-label="APADA del Ecuador — Inicio">
+      <a href="/" class="relative flex h-9 w-17.5 shrink-0 items-center sm:h-10" aria-label="APADA del Ecuador — Inicio">
         <Image
-          src={logo}
+          src={logoWhite}
           alt="APADA del Ecuador"
           height={40}
           width={73}
-          class="h-9 w-auto rounded-md bg-white/90 px-1.5 py-1 sm:h-10 group-data-[scrolled=true]:bg-transparent group-data-[scrolled=true]:p-0"
+          class="absolute inset-0 h-full w-full object-contain object-left opacity-100 transition-opacity duration-300 group-data-[scrolled=true]:opacity-0"
+        />
+        <Image
+          src={logoNavy}
+          alt="APADA del Ecuador"
+          height={40}
+          width={73}
+          class="absolute inset-0 h-full w-full object-contain object-left opacity-0 transition-opacity duration-300 group-data-[scrolled=true]:opacity-100"
         />
       </a>
 
-      <nav aria-label="Navegación principal" class="hidden md:flex md:items-center md:gap-1 lg:gap-2">
-        {NAV_ITEMS.map((item) => {
-          const isActive = currentPath === item.href;
-          return (
-            <a
-              href={item.href}
-              aria-current={isActive ? 'page' : undefined}
-              class:list={[
-                'rounded-md px-3 py-2 text-sm font-medium text-current/85 transition-colors hover:text-current',
-                isActive && 'text-current underline decoration-2 underline-offset-8',
-              ]}
-            >
-              {item.label}
-            </a>
-          );
-        })}
-      </nav>
+      <DesktopNav client:idle items={NAV_ITEMS} currentPath={currentPath} />
 
       <div class="flex items-center gap-2">
         <a
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="hidden items-center rounded-full bg-brand-green px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-green-light md:inline-flex"
+          class="hidden items-center gap-1.5 rounded-full bg-brand-blue px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-blue-light md:inline-flex"
         >
-          Escríbenos por WhatsApp
+          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          WhatsApp
         </a>
         <MobileMenu client:idle items={NAV_ITEMS} currentPath={currentPath} whatsappUrl={WHATSAPP_URL} />
       </div>
@@ -63,8 +58,12 @@ const currentPath = Astro.url.pathname;
   (() => {
     const header = document.getElementById('site-header');
     if (!header) return;
+    let scrolled;
     const onScroll = () => {
-      header.dataset.scrolled = window.scrollY > 12 ? 'true' : 'false';
+      const next = window.scrollY > 12 ? 'true' : 'false';
+      if (next === scrolled) return;
+      scrolled = next;
+      header.dataset.scrolled = next;
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });

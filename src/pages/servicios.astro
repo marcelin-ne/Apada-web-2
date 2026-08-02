@@ -2,11 +2,7 @@
 import { Image } from 'astro:assets';
 import {
   HeartHandshake,
-  ClipboardList,
   MessageCircle,
-  Puzzle,
-  Brain,
-  Target,
   GraduationCap,
   Presentation,
   UsersRound,
@@ -20,12 +16,15 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
 import { WHATSAPP_URL } from '@/lib/nav';
 import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
-import servicioTerapias from '@/assets/generated/servicio-terapias.png';
 import servicioEscolar from '@/assets/generated/servicio-escolar.png';
-import equipoImage from '@/assets/generated/nosotros-equipo.png';
-import ninoImage from '@/assets/generated/nosotros-nino.png';
 import heroImage from '@/assets/generated/hero-inicio.png';
+import equipoImage from '@/assets/generated/nosotros-equipo.png';
 import caminataImage from '@/assets/generated/eventos-caminata-v2.png';
+// Fotos reales de APADA
+import oradorServicios from '@/assets/photos/orador-servicios.jpg';
+import abrazoOficina from '@/assets/photos/abrazo-oficina.jpg';
+import capacitacionNeurodiversidad from '@/assets/photos/capacitacion-neurodiversidad.jpg';
+import conadisVotoSinLimites from '@/assets/photos/conadis-voto-sin-limites.jpg';
 
 const navCards = [
   {
@@ -55,74 +54,44 @@ const servicios = [
   {
     titulo: 'Orientación familiar',
     texto: 'Un primer espacio de escucha para entender qué está pasando y cuáles son los siguientes pasos, sin costo.',
-    icon: HeartHandshake,
-    imagen: servicioOrientacion,
-  },
-  {
-    titulo: 'Evaluación y diagnóstico',
-    texto: 'Acompañamiento antes, durante y después del proceso de evaluación, junto a especialistas de confianza.',
-    icon: ClipboardList,
-    imagen: ninoImage,
-  },
-  {
-    titulo: 'Terapia de lenguaje',
-    texto: 'Apoyo en comunicación verbal y no verbal, adaptado a la edad y necesidades de cada persona.',
     icon: MessageCircle,
-    imagen: servicioTerapias,
-  },
-  {
-    titulo: 'Terapia ocupacional',
-    texto: 'Trabajo en integración sensorial, motricidad y habilidades para la vida diaria.',
-    icon: Puzzle,
-    imagen: servicioTerapias,
-  },
-  {
-    titulo: 'Psicología',
-    texto: 'Acompañamiento emocional tanto para la persona autista como para su familia.',
-    icon: Brain,
-    imagen: ninoImage,
-  },
-  {
-    titulo: 'Apoyo conductual',
-    texto: 'Estrategias positivas para el desarrollo de habilidades y la autonomía.',
-    icon: Target,
     imagen: servicioOrientacion,
+  },
+  {
+    titulo: 'Acompañamiento familiar',
+    texto: 'Acompañamos a cada familia en las distintas etapas del camino del autismo, para que nadie lo transite en soledad.',
+    icon: HeartHandshake,
+    imagen: abrazoOficina,
   },
   {
     titulo: 'Apoyo escolar',
-    texto: 'Acompañamiento a instituciones educativas para una inclusión real en el aula.',
+    texto: 'Acompañamiento a instituciones educativas y familias para lograr una inclusión real en el aula.',
     icon: GraduationCap,
     imagen: servicioEscolar,
   },
   {
-    titulo: 'Capacitación docente',
-    texto: 'Talleres prácticos sobre adaptaciones curriculares y manejo de aula.',
+    titulo: 'Capacitaciones',
+    texto: 'Talleres y capacitaciones sobre autismo, inclusión y adaptaciones para familias, docentes y profesionales.',
     icon: Presentation,
-    imagen: servicioEscolar,
-  },
-  {
-    titulo: 'Talleres para padres',
-    texto: 'Espacios de formación y contención entre familias que viven procesos similares.',
-    icon: UsersRound,
-    imagen: equipoImage,
+    imagen: capacitacionNeurodiversidad,
   },
   {
     titulo: 'Asesoría legal',
-    texto: 'Orientación sobre calificación de discapacidad y derechos vigentes en Ecuador.',
+    texto: 'Orientación sobre la calificación de discapacidad y los derechos vigentes en Ecuador.',
     icon: Scale,
-    imagen: servicioOrientacion,
+    imagen: conadisVotoSinLimites,
   },
 ];
 ---
 
 <BaseLayout
   title="Servicios"
-  description="Orientación familiar, evaluación y diagnóstico, terapias, apoyo escolar, capacitación docente y asesoría legal — servicios de APADA del Ecuador."
+  description="Orientación y acompañamiento familiar, apoyo escolar, capacitaciones y asesoría legal — servicios de APADA del Ecuador."
 >
   <PageBanner
     title="Nuestros servicios"
     subtitle="Apoyo integral para personas con TEA y sus familias, desde la orientación inicial hasta la inclusión escolar."
-    image={servicioOrientacion}
+    image={oradorServicios}
     breadcrumb="Servicios"
   />
 
@@ -132,7 +101,7 @@ const servicios = [
         {servicios.map((s) => {
           const Icon = s.icon;
           return (
-            <article class="group flex flex-col rounded-2xl bg-brand-cream-dark p-6 transition duration-200 hover:bg-brand-yellow motion-safe:hover:-translate-y-1">
+            <article class="group flex flex-col rounded-2xl bg-brand-cream-dark p-6 transition duration-200 hover:bg-brand-sky-light motion-safe:hover:-translate-y-1">
               <div class="flex items-start justify-between gap-4">
                 <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-brand-navy">
                   <Icon className="h-6 w-6" />
@@ -236,10 +205,10 @@ const servicios = [
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-brand-yellow py-2 pr-2 pl-6 text-base font-semibold text-brand-navy transition-transform motion-safe:hover:-translate-y-0.5"
+          class="inline-flex items-center gap-2 rounded-full bg-white py-2 pr-2 pl-6 text-base font-semibold text-brand-navy transition-transform motion-safe:hover:-translate-y-0.5"
         >
           Donar ahora
-          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-navy text-white">
             <ArrowUpRight className="h-4 w-4" />
           </span>
         </a>

@@ -1,76 +1,72 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
-import ContactForm from '@/components/contacto/ContactForm.tsx';
-import bannerImage from '@/assets/generated/nosotros-nino.png';
+import { MessageCircle, MapPin, Mail, Clock } from 'lucide-react';
+import bannerImage from '@/assets/photos/stand-registro.jpg';
 import { CONTACT, WHATSAPP_URL } from '@/lib/nav';
 ---
 
 <BaseLayout
   title="Contacto"
-  description="Escríbenos por WhatsApp, correo o formulario. Dirección, teléfono y horarios de atención de APADA del Ecuador en Quito."
+  description="Escríbenos por WhatsApp. Dirección, teléfono y horarios de atención de APADA del Ecuador en Quito."
 >
   <PageBanner
     title="Contáctanos"
-    subtitle="Estamos para acompañarte. Escríbenos por el medio que prefieras."
+    subtitle="Estamos para acompañarte. Escríbenos por WhatsApp y te respondemos a la brevedad."
     image={bannerImage}
     breadcrumb="Contacto"
   />
 
   <section class="px-4 py-14 sm:px-6 lg:px-8">
-    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-2">
-      <div>
-        <h2 class="text-xl font-bold text-foreground">Escríbenos</h2>
-        <p class="mt-2 text-sm text-muted-foreground">
-          Completa el formulario y te responderemos a la brevedad.
+    <div class="mx-auto max-w-3xl">
+      <div class="relative isolate overflow-hidden rounded-3xl bg-brand-blue px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-navy/40 via-transparent to-transparent"></div>
+        <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
+          <MessageCircle className="h-6 w-6" aria-hidden="true" />
+        </span>
+        <h2 class="mt-5 text-2xl font-bold sm:text-3xl">Escríbenos por WhatsApp</h2>
+        <p class="mx-auto mt-3 max-w-md text-white/85">
+          Es la forma más rápida de contactarnos. Cuéntanos en qué podemos ayudarte y un miembro del equipo
+          de APADA te responderá a la brevedad.
         </p>
-        <div class="mt-6">
-          <ContactForm client:load />
-        </div>
-      </div>
-
-      <div>
-        <h2 class="text-xl font-bold text-foreground">Información de contacto</h2>
-        <dl class="mt-4 space-y-4 text-sm">
-          <div>
-            <dt class="font-medium text-foreground">Dirección</dt>
-            <dd class="mt-1 text-muted-foreground">{CONTACT.address}</dd>
-          </div>
-          <div>
-            <dt class="font-medium text-foreground">Teléfono</dt>
-            <dd class="mt-1 text-muted-foreground">
-              <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} class="hover:text-primary">{CONTACT.phone}</a>
-            </dd>
-          </div>
-          <div>
-            <dt class="font-medium text-foreground">Correo</dt>
-            <dd class="mt-1 text-muted-foreground">
-              <a href={`mailto:${CONTACT.email}`} class="hover:text-primary">{CONTACT.email}</a>
-            </dd>
-          </div>
-          <div>
-            <dt class="font-medium text-foreground">Horario de atención</dt>
-            <dd class="mt-1 text-muted-foreground">Lunes a viernes, 9:00 a 17:00</dd>
-          </div>
-        </dl>
-
         <a
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-6 inline-flex items-center justify-center rounded-lg bg-brand-green px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-green-light"
+          class="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-white py-1.5 pr-1.5 pl-6 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
         >
-          Contactar por WhatsApp
+          Escríbenos ahora
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-navy text-white">
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          </span>
         </a>
+      </div>
 
-        <!-- TODO-HIGGSFIELD: podría reemplazarse por embed real de Google Maps una vez confirmada la ubicación exacta -->
-        <div
-          class="mt-6 flex aspect-video w-full items-center justify-center rounded-xl border border-border bg-muted text-sm text-muted-foreground"
-          role="img"
-          aria-label={`Mapa de ubicación: ${CONTACT.address}`}
-        >
-          Mapa pendiente de integrar
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div class="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center">
+          <MapPin className="h-5 w-5 text-brand-blue" aria-hidden="true" />
+          <p class="text-sm font-semibold text-foreground">Dirección</p>
+          <p class="text-sm text-muted-foreground">{CONTACT.address}</p>
         </div>
+        <div class="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center">
+          <Mail className="h-5 w-5 text-brand-blue" aria-hidden="true" />
+          <p class="text-sm font-semibold text-foreground">Correo</p>
+          <a href={`mailto:${CONTACT.email}`} class="text-sm text-muted-foreground hover:text-primary">{CONTACT.email}</a>
+        </div>
+        <div class="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center">
+          <Clock className="h-5 w-5 text-brand-blue" aria-hidden="true" />
+          <p class="text-sm font-semibold text-foreground">Horario de atención</p>
+          <p class="text-sm text-muted-foreground">Lunes a viernes, 9:00 a 17:00</p>
+        </div>
+      </div>
+
+      <!-- TODO-HIGGSFIELD: podría reemplazarse por embed real de Google Maps una vez confirmada la ubicación exacta -->
+      <div
+        class="mt-6 flex aspect-video w-full items-center justify-center rounded-2xl border border-border bg-muted text-sm text-muted-foreground"
+        role="img"
+        aria-label={`Mapa de ubicación: ${CONTACT.address}`}
+      >
+        Mapa pendiente de integrar
       </div>
     </div>
   </section>

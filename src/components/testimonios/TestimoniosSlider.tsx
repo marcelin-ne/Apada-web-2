@@ -12,12 +12,9 @@ interface Props {
 }
 
 const AVATAR_COLORS = [
-  'bg-brand-teal',
-  'bg-brand-purple',
-  'bg-brand-orange',
-  'bg-brand-green',
   'bg-brand-blue',
   'bg-brand-navy',
+  'bg-brand-blue-light',
 ];
 
 export default function TestimoniosSlider({ testimonios }: Props) {
@@ -111,7 +108,7 @@ export default function TestimoniosSlider({ testimonios }: Props) {
                 aria-hidden={i < index || i >= index + perView}
               >
                 <figure className="flex h-full flex-col rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <div className="flex gap-1 text-brand-orange-light" aria-hidden="true">
+                  <div className="flex gap-1 text-brand-sky" aria-hidden="true">
                     {Array.from({ length: 5 }).map((_, s) => (
                       <Star key={s} className="h-4 w-4 fill-current" />
                     ))}
@@ -133,7 +130,7 @@ export default function TestimoniosSlider({ testimonios }: Props) {
                     </span>
                     <span
                       aria-hidden="true"
-                      className="ml-auto font-serif text-5xl leading-none text-brand-orange-light/70"
+                      className="ml-auto font-serif text-5xl leading-none text-brand-sky/70"
                     >
                       &rdquo;
                     </span>
@@ -168,7 +165,7 @@ export default function TestimoniosSlider({ testimonios }: Props) {
             >
               <span
                 className={`block h-2.5 rounded-full transition-all ${
-                  d === index ? 'w-6 bg-brand-orange-light' : 'w-2.5 bg-white/30'
+                  d === index ? 'w-6 bg-brand-sky' : 'w-2.5 bg-white/30'
                 }`}
               />
             </button>
