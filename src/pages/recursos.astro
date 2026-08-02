@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
+import YouTubeEmbed from '@/components/ui/YouTubeEmbed.astro';
 import bannerImage from '@/assets/generated/servicio-escolar.png';
 
 const recursos = (await getCollection('recursos')).sort(
@@ -52,6 +53,36 @@ const categorias = [
     {grupos.map(({ tipo, titulo }) => {
       const items = recursos.filter((r) => r.data.type === tipo);
       if (items.length === 0) return null;
+      if (tipo === 'video') {
+        return (
+          <section id={tipo} class="scroll-mt-20 border-b border-border py-10 first:pt-0 last:border-0">
+            <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+              Videos
+            </span>
+            <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+              Aprende con nuestros videos
+            </h2>
+            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:auto-rows-[190px] lg:auto-rows-[220px]">
+              {items.map((r, i) => {
+                const isFeatured = i === 0;
+                return (
+                  <article class:list={['group relative overflow-hidden rounded-2xl', isFeatured && 'sm:col-span-2 sm:row-span-2']}>
+                    {r.data.externalUrl && (
+                      <YouTubeEmbed
+                        url={r.data.externalUrl}
+                        title={r.data.title}
+                        description={r.data.description}
+                        overlay={isFeatured}
+                        class="aspect-video sm:aspect-auto sm:h-full"
+                      />
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        );
+      }
       return (
         <section id={tipo} class="scroll-mt-20 border-b border-border py-10 first:pt-0 last:border-0">
           <h2 class="text-2xl font-bold text-foreground">{titulo}</h2>
