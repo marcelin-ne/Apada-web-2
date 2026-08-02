@@ -12,15 +12,8 @@
     --color-brand-navy: var(--brand-navy);
     --color-brand-blue: var(--brand-blue);
     --color-brand-blue-light: var(--brand-blue-light);
-    --color-brand-teal: var(--brand-teal);
-    --color-brand-teal-light: var(--brand-teal-light);
-    --color-brand-purple: var(--brand-purple);
-    --color-brand-purple-light: var(--brand-purple-light);
-    --color-brand-orange: var(--brand-orange);
-    --color-brand-orange-light: var(--brand-orange-light);
-    --color-brand-green: var(--brand-green);
-    --color-brand-green-light: var(--brand-green-light);
-    --color-brand-yellow: var(--brand-yellow);
+    --color-brand-sky: var(--brand-sky);
+    --color-brand-sky-light: var(--brand-sky-light);
     --color-brand-cream: var(--brand-cream);
     --color-brand-cream-dark: var(--brand-cream-dark);
     --color-sidebar-ring: var(--sidebar-ring);
@@ -64,22 +57,14 @@
 }
 
 :root {
-    /* APADA del Ecuador brand palette — see docs/brand/brand-knowledge.md */
-    /* teal/orange/green-light darkened from the original reference to clear 4.5:1 AA contrast with white text */
+    /* APADA del Ecuador brand palette — solo azules y celestes (ver docs/brand/brand-knowledge.md) */
     --brand-navy: #24368C;
     --brand-blue: #1E63A8;
     --brand-blue-light: #2E7CC4;
-    --brand-teal: #19726E;
-    --brand-teal-light: #2AB5B0;
-    --brand-purple: #6E2F86;
-    --brand-purple-light: #8E3FA8;
-    --brand-orange: #9F6208;
-    --brand-orange-light: #F5A623;
-    --brand-green: #17805B;
-    --brand-green-light: #13743A;
-    --brand-yellow: #F2C230;
-    --brand-cream: #FAF8F3;
-    --brand-cream-dark: #F2EEE2;
+    --brand-sky: #3FA9E0;
+    --brand-sky-light: #E7F2FC;
+    --brand-cream: #F6FAFE;
+    --brand-cream-dark: #E7F1FB;
 
     --background: var(--brand-cream);
     --foreground: #232634;
@@ -91,13 +76,13 @@
     --primary-foreground: #FFFFFF;
     --secondary: var(--brand-cream-dark);
     --secondary-foreground: var(--brand-navy);
-    --muted: #EFE9DD;
-    --muted-foreground: #5C5F6E;
-    --accent: var(--brand-teal);
+    --muted: #E9F1FA;
+    --muted-foreground: #55627A;
+    --accent: var(--brand-blue);
     --accent-foreground: #FFFFFF;
     --destructive: #D8264F;
-    --border: #E0D9C9;
-    --input: #E0D9C9;
+    --border: #D7E6F5;
+    --input: #D7E6F5;
     --ring: var(--brand-navy);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);

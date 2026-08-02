@@ -1,15 +1,17 @@
 ---
 import { Image } from 'astro:assets';
-import { Check, ArrowUpRight } from 'lucide-react';
+import { Check, ArrowUpRight, GraduationCap, Landmark, FileText } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
 import MisionVisionTabs from '@/components/nosotros/MisionVisionTabs.tsx';
 import { WHATSAPP_URL } from '@/lib/nav';
-import heroImage from '@/assets/generated/hero-inicio.png';
-import equipoImage from '@/assets/generated/nosotros-equipo.png';
-import ninoImage from '@/assets/generated/nosotros-nino.png';
-import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
 import caminataImage from '@/assets/generated/eventos-caminata-v2.png';
+// Fotos reales de APADA
+import mantaBambu from '@/assets/photos/manta-bambu.jpg';
+import capacitacionNeurodiversidad from '@/assets/photos/capacitacion-neurodiversidad.jpg';
+import equipoCamisetas from '@/assets/photos/equipo-camisetas.jpg';
+import asambleaManos from '@/assets/photos/asamblea-manos.jpg';
+import tallerNinosCirculo from '@/assets/photos/taller-ninos-circulo.jpg';
 
 const listaSobreNosotros = [
   'Súmate a nuestra misión y haz la diferencia',
@@ -54,6 +56,35 @@ const estadisticas = [
   { valor: '3', etiqueta: 'Ciudades en la red', destacado: false },
   { valor: '100%', etiqueta: 'Sin fines de lucro', destacado: false },
 ];
+
+const aliados = [
+  {
+    categoria: 'Universidades',
+    icon: GraduationCap,
+    items: [
+      'Universidad Andina Simón Bolívar',
+      'Universidad Politécnica Salesiana',
+      'Universidad Central del Ecuador',
+    ],
+  },
+  {
+    categoria: 'Instituciones públicas',
+    icon: Landmark,
+    items: [
+      'CONADIS',
+      'Subsecretaría de Educación del Distrito Metropolitano de Quito',
+      'Secretaría de Inclusión del Distrito Metropolitano de Quito',
+      'Secretaría de Salud del Distrito Metropolitano de Quito',
+    ],
+  },
+];
+
+// Documentos de transparencia (pendientes de subir el archivo)
+const documentos = [
+  { nombre: 'Estatuto', archivo: null },
+  { nombre: 'Listado de socios', archivo: null },
+  { nombre: 'Directiva', archivo: null },
+];
 ---
 
 <BaseLayout
@@ -63,7 +94,7 @@ const estadisticas = [
   <PageBanner
     title="Sobre Nosotros"
     subtitle="Somos padres que ayudan a padres en el camino del autismo."
-    image={equipoImage}
+    image={mantaBambu}
     breadcrumb="Nosotros"
   />
 
@@ -84,15 +115,15 @@ const estadisticas = [
           </p>
         </div>
         <Image
-          src={servicioOrientacion}
-          alt="Ilustración de una orientadora conversando con una madre"
+          src={capacitacionNeurodiversidad}
+          alt="Charla de sensibilización sobre neurodiversidad organizada por APADA"
           width={700}
           height={440}
           class="w-full rounded-2xl object-cover"
         />
         <Image
-          src={equipoImage}
-          alt="Ilustración del equipo de APADA colaborando"
+          src={equipoCamisetas}
+          alt="Equipo de APADA con camisetas de la organización"
           width={700}
           height={360}
           class="max-h-56 w-full rounded-2xl object-cover"
@@ -101,8 +132,8 @@ const estadisticas = [
 
       <div class="flex flex-col gap-6">
         <Image
-          src={heroImage}
-          alt="Ilustración de familias y comunidad acompañándose"
+          src={asambleaManos}
+          alt="Familias de APADA reunidas en una asamblea comunitaria"
           width={640}
           height={720}
           class="min-h-64 w-full flex-1 rounded-2xl object-cover"
@@ -114,7 +145,7 @@ const estadisticas = [
         <ul class="space-y-3">
           {listaSobreNosotros.map((item) => (
             <li class="flex items-center gap-3">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-sky text-brand-navy">
                 <Check className="h-4 w-4" />
               </span>
               <span class="font-semibold text-foreground">{item}</span>
@@ -129,8 +160,8 @@ const estadisticas = [
   <section id="mision" class="scroll-mt-24 bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
       <Image
-        src={ninoImage}
-        alt="Ilustración cálida de un niño abrazado por su madre"
+        src={tallerNinosCirculo}
+        alt="Niños participando en un taller en círculo junto a sus familias"
         width={560}
         height={640}
         class="w-full rounded-2xl object-cover"
@@ -148,7 +179,7 @@ const estadisticas = [
         <ul class="mt-6 space-y-4">
           {listaMision.map((item) => (
             <li class="flex items-center gap-3">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-brand-navy">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-sky text-brand-navy">
                 <Check className="h-4 w-4" />
               </span>
               <span class="font-semibold text-foreground">{item}</span>
@@ -187,8 +218,81 @@ const estadisticas = [
     </div>
   </section>
 
+  <!-- Aliados -->
+  <section id="aliados" class="scroll-mt-24 bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
+          Red de aliados
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Aliados y colaboradores</h2>
+        <p class="mt-4 text-muted-foreground">
+          Trabajamos junto a universidades, organizaciones e instituciones públicas comprometidas con la
+          inclusión de las personas con autismo.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {aliados.map((grupo) => {
+          const Icon = grupo.icon;
+          return (
+            <div class="rounded-2xl bg-card p-6 ring-1 ring-black/5">
+              <div class="flex items-center gap-3">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-navy/10 text-brand-navy">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 class="font-bold text-foreground">{grupo.categoria}</h3>
+              </div>
+              <ul class="mt-5 space-y-3">
+                {grupo.items.map((item) => (
+                  <li class="flex items-start gap-2.5 text-sm text-foreground/90">
+                    <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue" aria-hidden="true"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparencia -->
+  <section id="transparencia" class="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          Transparencia
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Documentos institucionales</h2>
+        <p class="mt-4 text-muted-foreground">
+          Como organización sin fines de lucro, ponemos a disposición nuestros documentos institucionales.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {documentos.map((doc) => (
+          <div class="flex items-center gap-4 rounded-2xl border border-border bg-card p-5">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-navy/10 text-brand-navy">
+              <FileText className="h-6 w-6" />
+            </span>
+            <div class="min-w-0">
+              <h3 class="font-semibold text-foreground">{doc.nombre}</h3>
+              {doc.archivo ? (
+                <a href={doc.archivo} class="text-sm font-semibold text-primary hover:underline">Descargar</a>
+              ) : (
+                <span class="text-sm text-muted-foreground">Disponible próximamente</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Componente 4: Estadísticas / Donaciones -->
-  <section id="donaciones" class="scroll-mt-24 bg-brand-green px-4 py-16 text-white sm:px-6 lg:px-8">
+  <section id="donaciones" class="scroll-mt-24 bg-brand-blue px-4 py-16 text-white sm:px-6 lg:px-8">
     <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
       <div>
         <span class="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-white/20">
@@ -205,10 +309,10 @@ const estadisticas = [
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-brand-yellow py-1.5 pr-1.5 pl-5 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
+          class="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-white py-1.5 pr-1.5 pl-5 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
         >
           Donar ahora
-          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-navy">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-navy text-white">
             <ArrowUpRight className="h-4 w-4" />
           </span>
         </a>
@@ -219,7 +323,7 @@ const estadisticas = [
           <div
             class:list={[
               'flex flex-col items-center justify-center rounded-2xl px-4 py-8 text-center',
-              e.destacado ? 'bg-brand-yellow text-brand-navy' : 'bg-white text-foreground',
+              e.destacado ? 'bg-brand-sky text-brand-navy' : 'bg-white text-foreground',
             ]}
           >
             <span class="text-3xl font-bold sm:text-4xl">{e.valor}</span>

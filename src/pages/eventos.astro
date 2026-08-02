@@ -3,7 +3,9 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
-import caminataImage from '@/assets/generated/eventos-caminata-v2.png';
+// Fotos reales de APADA
+import bannerImage from '@/assets/photos/evento-grupo-manta.jpg';
+import tallerNinosCirculo from '@/assets/photos/taller-ninos-circulo.jpg';
 
 const eventos = await getCollection('eventos');
 const proximos = eventos
@@ -21,15 +23,15 @@ const pasados = eventos
   <PageBanner
     title="Eventos"
     subtitle="Actividades y comunidad presencial: caminatas, talleres y capacitaciones."
-    image={caminataImage}
+    image={bannerImage}
     breadcrumb="Eventos"
   />
 
   <section id="proximos" class="scroll-mt-20 px-4 py-14 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-6xl">
       <Image
-        src={caminataImage}
-        alt="Ilustración de familias caminando juntas en un evento de concienciación sobre el autismo"
+        src={tallerNinosCirculo}
+        alt="Niños y familias participando en un taller de APADA"
         width={900}
         height={675}
         class="mb-10 w-full rounded-2xl"
@@ -38,7 +40,7 @@ const pasados = eventos
       <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {proximos.map((evento) => (
           <article class="rounded-xl border border-border bg-card p-6">
-            <p class="text-sm font-medium text-brand-orange">
+            <p class="text-sm font-medium text-brand-blue">
               {evento.data.date.toLocaleDateString('es-EC', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
             </p>
             <h3 class="mt-1 text-lg font-semibold text-foreground">{evento.data.title}</h3>

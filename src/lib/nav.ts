@@ -1,16 +1,41 @@
-export interface NavItem {
+export interface NavLink {
   label: string;
   href: string;
 }
 
+export interface NavItem extends NavLink {
+  children?: NavLink[];
+}
+
+// Máximo 5 elementos de primer nivel: las páginas relacionadas se agrupan en submenús.
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Autismo', href: '/autismo' },
-  { label: 'Servicios', href: '/servicios' },
-  { label: 'Red de Apoyo', href: '/red-de-apoyo' },
-  { label: 'Recursos', href: '/recursos' },
-  { label: 'Eventos', href: '/eventos' },
-  { label: 'Nosotros', href: '/nosotros' },
+  {
+    label: 'Conócenos',
+    href: '/nosotros',
+    children: [
+      { label: 'Nosotros', href: '/nosotros' },
+      { label: 'Autismo', href: '/autismo' },
+    ],
+  },
+  {
+    label: 'Servicios',
+    href: '/servicios',
+    children: [
+      { label: 'Todos los servicios', href: '/servicios' },
+      { label: 'Red de Apoyo', href: '/red-de-apoyo' },
+    ],
+  },
+  {
+    label: 'Recursos',
+    href: '/recursos',
+    children: [
+      { label: 'Todos los recursos', href: '/recursos' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Eventos', href: '/eventos' },
+      { label: 'Preguntas Frecuentes', href: '/preguntas-frecuentes' },
+    ],
+  },
   { label: 'Contacto', href: '/contacto' },
 ];
 

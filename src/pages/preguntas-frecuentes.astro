@@ -1,0 +1,52 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
+import Squiggle from '@/components/decor/Squiggle.astro';
+import FaqAccordion from '@/components/faq/FaqAccordion.tsx';
+import bannerImage from '@/assets/photos/abrazo-oficina.jpg';
+import { FAQ_ITEMS, FAQ_CATEGORIES } from '@/data/faq';
+import { WHATSAPP_URL } from '@/lib/nav';
+---
+
+<BaseLayout
+  title="Preguntas Frecuentes"
+  description="Respuestas a las preguntas que más se repiten entre las familias de la comunidad APADA: diagnóstico, terapias, carnet de discapacidad, educación y más."
+>
+  <PageBanner
+    title="Preguntas Frecuentes"
+    subtitle="Reunimos las dudas que más se repiten entre las familias de nuestra comunidad, organizadas por tema."
+    image={bannerImage}
+    breadcrumb="Preguntas Frecuentes"
+  />
+
+  <section class="relative isolate overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
+    <Squiggle position="top-left" color="sky" />
+    <div class="relative z-10 mx-auto max-w-3xl">
+      <FaqAccordion client:load items={FAQ_ITEMS} categories={FAQ_CATEGORIES} />
+
+      <div class="mt-14 rounded-2xl bg-brand-cream-dark px-6 py-8 text-center sm:px-10">
+        <h2 class="text-xl font-bold text-foreground">¿No encontraste tu respuesta?</h2>
+        <p class="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+          Escríbenos por WhatsApp y con gusto te acompañamos, o revisa nuestra Red de Apoyo para encontrar
+          profesionales cerca de ti.
+        </p>
+        <div class="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-blue-light"
+          >
+            Escríbenos por WhatsApp
+          </a>
+          <a
+            href="/red-de-apoyo"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-navy/20 px-6 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-white"
+          >
+            Ver Red de Apoyo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

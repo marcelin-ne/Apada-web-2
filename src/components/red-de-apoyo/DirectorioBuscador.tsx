@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -7,42 +8,33 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import {
-  PROFESIONALES,
-  CIUDADES,
-  ESPECIALIDADES,
-  MODALIDADES,
-} from '@/data/directorio';
+import { ORGANIZACIONES, CIUDADES } from '@/data/directorio';
 
 const TODAS = 'todas';
 
 export default function DirectorioBuscador() {
   const [busqueda, setBusqueda] = useState('');
   const [ciudad, setCiudad] = useState(TODAS);
-  const [especialidad, setEspecialidad] = useState(TODAS);
-  const [modalidad, setModalidad] = useState(TODAS);
 
   const resultados = useMemo(() => {
-    return PROFESIONALES.filter((p) => {
-      if (ciudad !== TODAS && p.ciudad !== ciudad) return false;
-      if (especialidad !== TODAS && p.especialidad !== especialidad) return false;
-      if (modalidad !== TODAS && p.modalidad !== modalidad) return false;
+    return ORGANIZACIONES.filter((o) => {
+      if (ciudad !== TODAS && o.ciudad !== ciudad) return false;
       if (busqueda.trim()) {
         const q = busqueda.trim().toLowerCase();
         return (
-          p.nombre.toLowerCase().includes(q) ||
-          p.especialidad.toLowerCase().includes(q) ||
-          p.descripcion.toLowerCase().includes(q)
+          o.nombre.toLowerCase().includes(q) ||
+          o.ciudad.toLowerCase().includes(q) ||
+          o.descripcion.toLowerCase().includes(q)
         );
       }
       return true;
     });
-  }, [busqueda, ciudad, especialidad, modalidad]);
+  }, [busqueda, ciudad]);
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" role="search" aria-label="Buscar en la red de apoyo">
-        <div className="lg:col-span-1">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3" role="search" aria-label="Buscar en la red de apoyo">
+        <div className="sm:col-span-2">
           <label htmlFor="busqueda" className="mb-1.5 block text-sm font-medium text-foreground">
             Buscar
           </label>
@@ -50,7 +42,7 @@ export default function DirectorioBuscador() {
             id="busqueda"
             type="search"
             className="h-11"
-            placeholder="Nombre, especialidad..."
+            placeholder="Nombre de la organización o ciudad..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
@@ -72,71 +64,58 @@ export default function DirectorioBuscador() {
             </SelectContent>
           </Select>
         </div>
-
-        <div>
-          <label htmlFor="filtro-especialidad" className="mb-1.5 block text-sm font-medium text-foreground">
-            Especialidad
-          </label>
-          <Select value={especialidad} onValueChange={setEspecialidad}>
-            <SelectTrigger id="filtro-especialidad" className="h-11 w-full">
-              <SelectValue placeholder="Todas las especialidades" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={TODAS}>Todas las especialidades</SelectItem>
-              {ESPECIALIDADES.map((e) => (
-                <SelectItem key={e} value={e}>{e}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div>
-          <label htmlFor="filtro-modalidad" className="mb-1.5 block text-sm font-medium text-foreground">
-            Modalidad
-          </label>
-          <Select value={modalidad} onValueChange={setModalidad}>
-            <SelectTrigger id="filtro-modalidad" className="h-11 w-full">
-              <SelectValue placeholder="Todas las modalidades" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={TODAS}>Todas las modalidades</SelectItem>
-              {MODALIDADES.map((m) => (
-                <SelectItem key={m} value={m}>{m}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
       </div>
 
       <p className="mt-4 text-sm text-muted-foreground" role="status" aria-live="polite">
-        {resultados.length} {resultados.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
+        {resultados.length} {resultados.length === 1 ? 'organización encontrada' : 'organizaciones encontradas'}
       </p>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {resultados.map((p) => (
-          <article key={p.id} className="rounded-xl border border-border bg-card p-5">
-            <h3 className="font-semibold text-foreground">{p.nombre}</h3>
-            <p className="mt-1 text-sm font-medium text-brand-teal">{p.especialidad}</p>
-            <p className="mt-2 text-sm text-muted-foreground">{p.descripcion}</p>
-            <dl className="mt-3 space-y-1 text-xs text-muted-foreground">
-              <div className="flex gap-1"><dt className="font-medium">Ciudad:</dt><dd>{p.ciudad}</dd></div>
-              <div className="flex gap-1"><dt className="font-medium">Modalidad:</dt><dd>{p.modalidad}</dd></div>
-              <div className="flex gap-1"><dt className="font-medium">Atiende a:</dt><dd>{p.edadAtendida}</dd></div>
+        {resultados.map((o) => (
+          <article key={o.id} className="flex flex-col rounded-xl border border-border bg-card p-5">
+            <h3 className="font-semibold text-foreground">{o.nombre}</h3>
+            {o.ciudad && (
+              <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-brand-blue">
+                <MapPin className="h-4 w-4" /> {o.ciudad}
+              </p>
+            )}
+            {o.descripcion && (
+              <p className="mt-2 flex-1 text-sm text-muted-foreground">{o.descripcion}</p>
+            )}
+
+            <dl className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              {o.direccion && o.direccion !== o.ciudad && (
+                <div className="flex gap-1.5">
+                  <dt className="sr-only">Dirección</dt>
+                  <dd>{o.direccion}</dd>
+                </div>
+              )}
             </dl>
-            <a
-              href={p.contacto}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
-            >
-              Contactar →
-            </a>
+
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold">
+              {o.telHref && (
+                <a
+                  href={`tel:${o.telHref}`}
+                  className="inline-flex items-center gap-1.5 text-primary hover:underline"
+                >
+                  <Phone className="h-4 w-4" /> Llamar
+                </a>
+              )}
+              {o.correo && (
+                <a
+                  href={`mailto:${o.correo}`}
+                  className="inline-flex items-center gap-1.5 text-primary hover:underline"
+                >
+                  <Mail className="h-4 w-4" /> Escribir
+                </a>
+              )}
+            </div>
           </article>
         ))}
 
         {resultados.length === 0 && (
           <p className="col-span-full py-8 text-center text-muted-foreground">
-            No encontramos resultados con esos filtros. Intenta con otra combinación.
+            No encontramos organizaciones con esos filtros. Intenta con otra búsqueda.
           </p>
         )}
       </div>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
+import Squiggle from '@/components/decor/Squiggle.astro';
+import BlogFilter from '@/components/blog/BlogFilter.tsx';
+import bannerImage from '@/assets/photos/asamblea-manos.jpg';
+
+const photoFiles = import.meta.glob<{ default: ImageMetadata }>('/src/assets/photos/*.{jpg,jpeg,png}', {
+  eager: true,
+});
+
+function resolvePhoto(filename: string) {
+  const entry = Object.entries(photoFiles).find(([path]) => path.endsWith(`/${filename}`));
+  if (!entry) throw new Error(`Foto de portada no encontrada: ${filename}`);
+  return entry[1].default;
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  historias: 'Historias',
+  concienciacion: 'Concienciación',
+  educacion: 'Educación',
+  eventos: 'Eventos',
+  derechos: 'Derechos',
+};
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+
+const cards = await Promise.all(
+  posts.map(async (post) => {
+    const cover = await getImage({ src: resolvePhoto(post.data.coverImage), width: 640, height: 480 });
+    return {
+      slug: post.id,
+      title: post.data.title,
+      excerpt: post.data.excerpt,
+      category: post.data.category,
+      categoryLabel: CATEGORY_LABELS[post.data.category] ?? post.data.category,
+      author: post.data.author,
+      dateLabel: post.data.publishDate.toLocaleDateString('es-EC', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }),
+      coverSrc: cover.src,
+      coverWidth: 640,
+      coverHeight: 480,
+    };
+  }),
+);
+
+const categories = Object.entries(CATEGORY_LABELS).map(([value, label]) => ({ value, label }));
+---
+
+<BaseLayout
+  title="Blog"
+  description="Historias, concienciación, educación, eventos y derechos: el blog de APADA del Ecuador."
+>
+  <PageBanner
+    title="Blog"
+    subtitle="Historias, concienciación y recursos prácticos para familias, docentes y profesionales."
+    image={bannerImage}
+    breadcrumb="Blog"
+  />
+
+  <section class="relative isolate overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
+    <Squiggle position="top-right" color="sky" />
+    <div class="relative z-10 mx-auto max-w-6xl">
+      <BlogFilter client:load posts={cards} categories={categories} />
+    </div>
+  </section>
+</BaseLayout>
