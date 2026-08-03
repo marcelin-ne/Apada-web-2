@@ -6,7 +6,7 @@ time: "10:00 AM"
 location: "Sede APADA, Quito (Edificio Eiffel)"
 description: "Un taller práctico para padres y cuidadores sobre estrategias de regulación emocional en casa."
 ctaLabel: "Inscribirme"
-ctaUrl: "https://wa.me/593996062600"
+ctaUrl: "https://wa.me/593994482885"
 gallery: []
 ---
 

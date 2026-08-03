@@ -59,7 +59,7 @@ const eventos = defineCollection({
     description: z.string(),
     featured: z.boolean().default(false),
     ctaLabel: z.string().default('Inscribirme'),
-    ctaUrl: z.string().default('https://wa.me/593996062600'),
+    ctaUrl: z.string().default('https://wa.me/593994482885'),
     gallery: z.array(z.string()).default([]),
   }),
 });

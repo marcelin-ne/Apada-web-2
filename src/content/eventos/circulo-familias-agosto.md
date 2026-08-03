@@ -6,7 +6,7 @@ time: "04:00 PM"
 location: "Sede APADA, Quito (Edificio Eiffel)"
 description: "Un espacio de encuentro para que las familias compartan experiencias, dudas y aprendizajes en un ambiente de confianza."
 ctaLabel: "Inscribirme"
-ctaUrl: "https://wa.me/593996062600"
+ctaUrl: "https://wa.me/593994482885"
 gallery: []
 ---
 

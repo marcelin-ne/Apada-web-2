@@ -7,7 +7,7 @@ featured: true
 location: "Parque La Carolina, Quito"
 description: "Nuestra caminata anual para visibilizar el autismo y recaudar fondos para los programas de apoyo de APADA. Actividades para toda la familia, talleres artísticos y feria de aliados."
 ctaLabel: "Inscribirme"
-ctaUrl: "https://wa.me/593996062600"
+ctaUrl: "https://wa.me/593994482885"
 gallery: []
 ---
 

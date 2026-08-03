@@ -16,6 +16,7 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Nosotros', href: '/nosotros' },
       { label: 'Autismo', href: '/autismo' },
+      { label: 'Afíliate', href: '/afiliate' },
     ],
   },
   {
@@ -39,12 +40,12 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Contacto', href: '/contacto' },
 ];
 
-export const WHATSAPP_URL = 'https://wa.me/593996062600';
+export const WHATSAPP_URL = 'https://wa.me/593994482885';
 export const SITE_URL = 'https://apadadelecuador.org';
 
 export const CONTACT = {
   address: 'Ulpiano Páez y Ramírez Dávalos, Edificio Eiffel, Quito',
-  phone: '+593 99 606 2600',
+  phone: '+593 99 448 2885',
   email: 'info@apadadelecuador.org',
 };
 

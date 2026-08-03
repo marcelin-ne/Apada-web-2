@@ -6,7 +6,7 @@ time: "09:00 AM"
 location: "Sede APADA, Quito (Edificio Eiffel)"
 description: "Formación práctica para docentes sobre adaptaciones curriculares y estrategias de inclusión en el aula."
 ctaLabel: "Inscribirme"
-ctaUrl: "https://wa.me/593996062600"
+ctaUrl: "https://wa.me/593994482885"
 gallery: []
 ---
 

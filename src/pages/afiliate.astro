@@ -1,0 +1,240 @@
+---
+import { Image } from 'astro:assets';
+import {
+  Scale,
+  BookOpen,
+  Users,
+  Megaphone,
+  HeartHandshake,
+  Building2,
+  MessageCircle,
+  PartyPopper,
+  Check,
+  Globe,
+} from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/PageBanner.astro';
+import AfiliacionSteps from '@/components/afiliate/AfiliacionSteps.astro';
+import SocialIcon from '@/components/icons/SocialIcon.astro';
+import { SOCIAL_LINKS, SITE_URL, WHATSAPP_URL } from '@/lib/nav';
+import asambleaManos from '@/assets/photos/asamblea-manos.jpg';
+import equipoCamisetas from '@/assets/photos/equipo-camisetas.jpg';
+
+const afiliacionSocialLinks = SOCIAL_LINKS.filter((s) => s.icon === 'facebook' || s.icon === 'instagram');
+
+const fines = [
+  {
+    icon: Scale,
+    title: 'Defender y promover derechos',
+    description: 'Vigilar el respeto a los derechos de las personas autistas y exigir su cumplimiento ante las autoridades.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Impulsar políticas públicas y marcos legales',
+    description: 'Incidir en la creación y mejora de leyes, políticas y programas que garanticen inclusión y no discriminación.',
+  },
+  {
+    icon: Users,
+    title: 'Representar y articular',
+    description: 'Representar a las personas autistas y sus familias ante instituciones públicas y privadas, y articularnos con organizaciones afines a nivel nacional e internacional.',
+  },
+  {
+    icon: Megaphone,
+    title: 'Sensibilizar y formar',
+    description: 'Promover la información, capacitación y sensibilización de la sociedad para construir una cultura de respeto y comprensión.',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Apoyar a las familias',
+    description: 'Brindar orientación, acompañamiento y espacios de apoyo mutuo que fortalezcan a las familias en su rol esencial.',
+  },
+  {
+    icon: Building2,
+    title: 'Promover la inclusión plena',
+    description: 'Fomentar la participación de las personas autistas en todos los ámbitos de la vida social, educativa, laboral, cultural y recreativa.',
+  },
+];
+
+const beneficios = [
+  'Fortaleces una organización que defiende y promueve derechos.',
+  'Tienes voz en nuestras decisiones y propuestas.',
+  'Accedes a información, capacitaciones y actividades exclusivas.',
+  'Contribuyes a la creación de políticas y programas inclusivos.',
+  'Formas parte de una comunidad que entiende, acompaña y transforma.',
+];
+
+const pasos = [
+  {
+    icon: MessageCircle,
+    title: 'Contáctanos',
+    description: 'Escríbenos por WhatsApp o visita nuestra web y cuéntanos que quieres afiliarte a APADA del Ecuador.',
+  },
+  {
+    icon: Users,
+    title: 'Conversemos',
+    description: 'Un miembro del equipo conversa contigo sobre tus datos, tu motivación y resuelve tus preguntas sobre la afiliación.',
+  },
+  {
+    icon: PartyPopper,
+    title: '¡Bienvenido/a!',
+    description: 'Confirmamos tu afiliación y te damos la bienvenida a una comunidad que entiende, acompaña y transforma.',
+  },
+];
+---
+
+<BaseLayout
+  title="Afíliate"
+  description="Afíliate a APADA del Ecuador: unidos transformamos realidades. Conoce nuestros fines, los beneficios de afiliarte y cómo sumarte."
+>
+  <PageBanner
+    title="¡Afíliate a APADA!"
+    subtitle="Unidos transformamos realidades. Tu afiliación fortalece nuestra voz colectiva y multiplica nuestro impacto."
+    image={asambleaManos}
+    breadcrumb="Afíliate"
+  />
+
+  <!-- Intro -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+        Afíliate
+      </span>
+      <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+        Unidos transformamos realidades
+      </h2>
+      <p class="mt-4 text-muted-foreground">
+        En APADA del Ecuador trabajamos por la inclusión, el respeto y la garantía de derechos de las personas
+        autistas y sus familias. Tu afiliación fortalece nuestra voz colectiva y multiplica nuestro impacto.
+      </p>
+    </div>
+  </section>
+
+  <!-- Nuestros fines -->
+  <section class="bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
+          Nuestros fines
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Nuestros fines, nuestro compromiso</h2>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {fines.map(({ icon: Icon, title, description }) => (
+          <div class="flex gap-4 rounded-2xl bg-white p-5 ring-1 ring-black/5">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-navy/10 text-brand-navy">
+              <Icon className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h3 class="font-bold text-foreground">{title}</h3>
+              <p class="mt-1.5 text-sm text-muted-foreground">{description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Por qué afiliarte? -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
+      <Image
+        src={equipoCamisetas}
+        alt="Equipo de APADA con camisetas de la organización"
+        width={640}
+        height={640}
+        class="w-full rounded-2xl object-cover"
+      />
+      <div>
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          ¿Por qué afiliarte?
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+          Tu compromiso hoy abre caminos para el mañana
+        </h2>
+        <ul class="mt-6 space-y-4">
+          {beneficios.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-sky text-brand-navy">
+                <Check className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span class="font-semibold text-foreground">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo afiliarte (pasos) -->
+  <section class="px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
+          ¿Cómo afiliarte?
+        </span>
+        <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">En 3 pasos eres parte de APADA</h2>
+        <p class="mt-4 text-muted-foreground">
+          Así de simple es sumarte a nuestra comunidad y comenzar a formar parte del cambio.
+        </p>
+      </div>
+
+      <div class="mt-12">
+        <AfiliacionSteps steps={pasos} />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final: ¡Súmate! -->
+  <section class="px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <div class="relative isolate overflow-hidden rounded-3xl bg-brand-blue px-6 py-12 text-center text-white sm:px-12 sm:py-16">
+        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-navy/40 via-transparent to-transparent"></div>
+        <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
+          <HeartHandshake className="h-6 w-6" aria-hidden="true" />
+        </span>
+        <h2 class="mt-5 text-2xl font-bold sm:text-3xl">¡Súmate!</h2>
+        <p class="mx-auto mt-3 max-w-md text-white/85">
+          Cada afiliación es un paso más hacia una sociedad inclusiva, justa y respetuosa de la neurodiversidad.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex w-fit items-center gap-2 rounded-full bg-white py-1.5 pr-1.5 pl-6 text-base font-semibold text-brand-navy transition-transform hover:-translate-y-0.5"
+          >
+            Afiliarme por WhatsApp
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-navy text-white">
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            </span>
+          </a>
+          <a
+            href={SITE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex w-fit items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            <Globe className="h-4 w-4" aria-hidden="true" />
+            {SITE_URL.replace('https://', '')}
+          </a>
+        </div>
+
+        <div class="mt-8 flex items-center justify-center gap-4">
+          {afiliacionSocialLinks.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`APADA del Ecuador en ${social.label}`}
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/25 transition-colors hover:bg-white/25"
+            >
+              <SocialIcon name={social.icon} class="h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
