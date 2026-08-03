@@ -10,11 +10,6 @@ import Squiggle from '@/components/decor/Squiggle.astro';
 import FaqAccordion from '@/components/faq/FaqAccordion.tsx';
 import { getFeaturedFaq } from '@/data/faq';
 import { WHATSAPP_URL, SOCIAL_LINKS } from '@/lib/nav';
-import heroImage from '@/assets/generated/hero-inicio.png';
-import ninoImage from '@/assets/generated/nosotros-nino.png';
-import servicioOrientacion from '@/assets/generated/servicio-orientacion.png';
-import servicioTerapias from '@/assets/generated/servicio-terapias.png';
-import servicioEscolar from '@/assets/generated/servicio-escolar.png';
 // Fotos reales de APADA
 import heroFamiliaSensorial from '@/assets/photos/hero-familia-sensorial.jpg';
 import asambleaManosHero from '@/assets/photos/asamblea-manos.jpg';
@@ -27,6 +22,17 @@ import oradorServicios from '@/assets/photos/orador-servicios.jpg';
 import radioEntrevista from '@/assets/photos/radio-entrevista.jpg';
 import conadisVotoSinLimites from '@/assets/photos/conadis-voto-sin-limites.jpg';
 import reconocimientoCertificado from '@/assets/photos/reconocimiento-certificado.jpg';
+import capacitacionZonaKids from '@/assets/photos/capacitacion-zona-kids.jpg';
+import caminataAutismoPancartas from '@/assets/photos/caminata-autismo-pancartas.jpg';
+import padreHijoMarchaGlobo from '@/assets/photos/padre-hijo-marcha-globo.jpg';
+import jovenesSesionHabilidades from '@/assets/photos/jovenes-sesion-habilidades-sociales.jpg';
+import familiaMarchaDiversidad from '@/assets/photos/familia-marcha-diversidad.jpg';
+
+const heroImage = caminataAutismoPancartas;
+const ninoImage = familiaMarchaDiversidad;
+const servicioOrientacion = padreHijoMarchaGlobo;
+const servicioTerapias = jovenesSesionHabilidades;
+const servicioEscolar = capacitacionZonaKids;
 
 const eventosUpcoming = (await getCollection('eventos'))
   .filter((e) => e.data.status === 'proximo')
@@ -103,7 +109,7 @@ const servicios = [
     etiqueta: 'Acompañamiento',
     color: 'bg-brand-navy',
     imagen: servicioOrientacion,
-    alt: 'Ilustración de una profesional conversando cálidamente con una madre en una oficina acogedora',
+    alt: 'Padre e hijo caminando de la mano en una marcha de concienciación sobre el autismo',
   },
   {
     titulo: 'Terapias',
@@ -111,7 +117,7 @@ const servicios = [
     etiqueta: 'Terapias',
     color: 'bg-brand-blue',
     imagen: servicioTerapias,
-    alt: 'Ilustración de una terapeuta jugando con materiales de colores junto a un niño feliz',
+    alt: 'Jóvenes de APADA mostrando material didáctico sobre habilidades sociales en una jornada de concienciación',
   },
   {
     titulo: 'Apoyo escolar',
@@ -119,7 +125,7 @@ const servicios = [
     etiqueta: 'Educación',
     color: 'bg-brand-blue-light',
     imagen: servicioEscolar,
-    alt: 'Ilustración de una docente acompañando a una niña en un aula inclusiva y luminosa',
+    alt: 'Capacitación a docentes y cuidadores de Zona Kids sobre estrategias de adaptación',
   },
 ];
 
@@ -285,7 +291,7 @@ const heroSlides = await Promise.all(
           </a>
           <Image
             src={ninoImage}
-            alt="Ilustración cálida de un niño abrazado por su madre, transmitiendo apoyo y esperanza"
+            alt="Familia marchando junto a sus hijos con un cartel que dice 'La diversidad es el color de nuestra familia'"
             width={480}
             height={640}
             class="max-h-60 w-full rounded-2xl object-cover object-top sm:max-h-none sm:min-h-0 sm:flex-1"
