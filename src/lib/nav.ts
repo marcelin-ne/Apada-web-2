@@ -52,12 +52,16 @@ export const CONTACT = {
 export interface SocialLink {
   label: string;
   href: string;
-  icon: 'facebook' | 'instagram' | 'twitter' | 'youtube';
+  icon: 'facebook' | 'instagram' | 'youtube' | 'linkedin';
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { label: 'Facebook', href: 'https://facebook.com', icon: 'facebook' },
-  { label: 'Instagram', href: 'https://instagram.com', icon: 'instagram' },
-  { label: 'Twitter / X', href: 'https://twitter.com', icon: 'twitter' },
-  { label: 'YouTube', href: 'https://youtube.com', icon: 'youtube' },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/search/top?q=aso%20padres%20apada%20del%20ecuador&locale=es_LA',
+    icon: 'facebook',
+  },
+  { label: 'Instagram', href: 'https://www.instagram.com/apadadelecuador/', icon: 'instagram' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@Apadadelecuador', icon: 'youtube' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/110457973/', icon: 'linkedin' },
 ];

@@ -26,6 +26,7 @@ pnpm-debug.log*
 # raw source photo dumps (not the optimized assets used by the site)
 /Apada-web-imgs/
 /Apada-web-imgs-2/
+/Apada-web-imgs-3/
 
 # sensitive raw chat export — contains private messages and real names,
 # never commit to this public repo
