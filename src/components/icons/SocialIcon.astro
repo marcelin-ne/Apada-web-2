@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: 'facebook' | 'instagram' | 'twitter' | 'youtube';
+  name: 'facebook' | 'instagram' | 'youtube' | 'linkedin';
   class?: string;
 }
 
@@ -21,9 +21,9 @@ const { name, class: className } = Astro.props;
   </svg>
 )}
 
-{name === 'twitter' && (
+{name === 'linkedin' && (
   <svg viewBox="0 0 24 24" fill="currentColor" class={className} aria-hidden="true">
-    <path d="M18.9 2H22l-7.4 8.46L23 22h-6.8l-5.3-6.93L5 22H1.9l7.9-9.03L1 2h7l4.8 6.33L18.9 2Zm-1.2 18.17h1.86L7.4 3.75H5.4l12.3 16.42Z" />
+    <path d="M6.94 5a2 2 0 1 1-4-.02 2 2 0 0 1 4 .02ZM7 8.48H3V21h4V8.48Zm6.32 0H9.35V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48Z" />
   </svg>
 )}
 
