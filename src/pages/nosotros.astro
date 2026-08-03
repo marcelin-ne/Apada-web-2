@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { Check, ArrowUpRight, FileText } from 'lucide-react';
+import { Check, ArrowUpRight, FileText, Download } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
 import MisionVisionTabs from '@/components/nosotros/MisionVisionTabs.tsx';
@@ -87,11 +87,26 @@ const logosAliados = [
   },
 ];
 
-// Documentos de transparencia (pendientes de subir el archivo)
+// Documentos de transparencia
 const documentos = [
-  { nombre: 'Estatuto', archivo: null },
-  { nombre: 'Listado de socios', archivo: null },
-  { nombre: 'Directiva', archivo: null },
+  {
+    nombre: 'Estatutos',
+    descripcion: 'Estatuto social de APADA del Ecuador, con la última reforma aprobada por el MIES en junio de 2021.',
+    archivo: '/documentos/estatutos-apada-2021.pdf',
+    formato: 'PDF',
+  },
+  {
+    nombre: 'Registro de directiva',
+    descripcion: 'Oficio del MIES que registra a la directiva de APADA para el período 2025 - 2027.',
+    archivo: '/documentos/registro-directiva-apada-2025-2027.pdf',
+    formato: 'PDF',
+  },
+  {
+    nombre: 'Nómina de socios',
+    descripcion: 'Listado de socios activos de APADA. Vigente hasta mayo de 2026.',
+    archivo: '/documentos/nomina-socios-apada.xls',
+    formato: 'XLS',
+  },
 ];
 ---
 
@@ -325,18 +340,25 @@ const documentos = [
 
       <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3">
         {documentos.map((doc) => (
-          <div class="flex items-center gap-4 rounded-2xl border border-border bg-card p-5">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-navy/10 text-brand-navy">
-              <FileText className="h-6 w-6" />
-            </span>
-            <div class="min-w-0">
-              <h3 class="font-semibold text-foreground">{doc.nombre}</h3>
-              {doc.archivo ? (
-                <a href={doc.archivo} class="text-sm font-semibold text-primary hover:underline">Descargar</a>
-              ) : (
-                <span class="text-sm text-muted-foreground">Disponible próximamente</span>
-              )}
+          <div class="flex flex-col rounded-2xl border border-border bg-card p-6">
+            <div class="flex items-center justify-between">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-navy/10 text-brand-navy">
+                <FileText className="h-6 w-6" />
+              </span>
+              <span class="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
+                {doc.formato}
+              </span>
             </div>
+            <h3 class="mt-4 font-semibold text-foreground">{doc.nombre}</h3>
+            <p class="mt-1.5 flex-1 text-sm text-muted-foreground">{doc.descripcion}</p>
+            <a
+              href={doc.archivo}
+              download
+              class="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            >
+              <Download className="h-4 w-4" />
+              Descargar
+            </a>
           </div>
         ))}
       </div>
