@@ -1,0 +1,55 @@
+---
+import type { LucideIcon } from 'lucide-react';
+
+interface Step {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+
+const variants = [
+  'bg-brand-sky-light text-brand-navy',
+  'bg-brand-cream-dark text-brand-navy',
+  'bg-brand-blue text-white',
+];
+---
+
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+  {steps.map(({ icon: Icon, title, description }, i) => {
+    const isFeatured = i === steps.length - 1;
+    return (
+      <div class:list={['flex flex-col gap-4 rounded-2xl p-6', variants[i % variants.length]]}>
+        <div class="flex items-center justify-between">
+          <span
+            class:list={[
+              'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl',
+              isFeatured ? 'bg-white/15' : 'bg-white',
+            ]}
+          >
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span
+            class:list={[
+              'text-sm font-bold',
+              isFeatured ? 'text-white/60' : 'text-brand-navy/40',
+            ]}
+          >
+            0{i + 1}
+          </span>
+        </div>
+        <div>
+          <h3 class="font-bold">{title}</h3>
+          <p class:list={['mt-2 text-sm', isFeatured ? 'text-white/85' : 'text-brand-navy/70']}>
+            {description}
+          </p>
+        </div>
+      </div>
+    );
+  })}
+</div>

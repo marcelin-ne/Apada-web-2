@@ -1,0 +1,99 @@
+---
+interface Props {
+  url: string;
+  title: string;
+  description?: string;
+  overlay?: boolean;
+  class?: string;
+}
+
+const { url, title, description, overlay = false, class: className } = Astro.props;
+
+function getYouTubeId(input: string): string | null {
+  try {
+    const parsed = new URL(input);
+    if (parsed.hostname.includes('youtu.be')) {
+      return parsed.pathname.slice(1) || null;
+    }
+    if (parsed.searchParams.has('v')) {
+      return parsed.searchParams.get('v');
+    }
+    const embedMatch = parsed.pathname.match(/\/embed\/([^/?]+)/);
+    if (embedMatch) return embedMatch[1];
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+const videoId = getYouTubeId(url);
+const thumbnail = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
+const sizeClass = className ?? 'aspect-video';
+---
+
+{
+  videoId ? (
+    <div
+      class:list={['youtube-embed group relative w-full overflow-hidden rounded-2xl bg-black', sizeClass]}
+      data-video-id={videoId}
+      data-title={title}
+    >
+      <button
+        type="button"
+        class="youtube-embed-trigger absolute inset-0 h-full w-full cursor-pointer text-left"
+        aria-label={`Reproducir video: ${title}`}
+        title={title}
+      >
+        <img
+          src={thumbnail}
+          alt=""
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <span class="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/30" />
+        {overlay && (
+          <span class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/10 to-transparent p-5">
+            <span class="text-base font-semibold text-white sm:text-lg">{title}</span>
+            {description && (
+              <span class="mt-1.5 line-clamp-2 text-sm text-white/80">{description}</span>
+            )}
+          </span>
+        )}
+        <span class="absolute inset-0 flex items-center justify-center">
+          <span class="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-16 sm:w-16">
+            <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 fill-brand-navy sm:h-7 sm:w-7" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </span>
+      </button>
+    </div>
+  ) : (
+    <p class="text-sm text-destructive">Enlace de video no válido.</p>
+  )
+}
+
+<script>
+  function initYouTubeEmbeds() {
+    document.querySelectorAll<HTMLElement>('.youtube-embed:not([data-initialized])').forEach((container) => {
+      container.dataset.initialized = 'true';
+      const trigger = container.querySelector('.youtube-embed-trigger');
+      trigger?.addEventListener('click', () => {
+        const videoId = container.dataset.videoId;
+        const embedTitle = container.dataset.title ?? 'Video de YouTube';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.title = embedTitle;
+        iframe.className = 'absolute inset-0 h-full w-full';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.setAttribute('frameborder', '0');
+        container.replaceChildren(iframe);
+      });
+    });
+  }
+
+  initYouTubeEmbeds();
+  document.addEventListener('astro:page-load', initYouTubeEmbeds);
+</script>
