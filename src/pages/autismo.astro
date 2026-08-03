@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
-import bannerImage from '@/assets/generated/hero-inicio.png';
+import bannerImage from '@/assets/photos/caminata-autismo-pancartas.jpg';
 
 const entries = (await getCollection('autismo')).sort((a, b) => a.data.order - b.data.order);
 

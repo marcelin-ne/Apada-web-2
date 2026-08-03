@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
 import YouTubeEmbed from '@/components/ui/YouTubeEmbed.astro';
-import bannerImage from '@/assets/generated/servicio-escolar.png';
+import bannerImage from '@/assets/photos/capacitacion-zona-kids.jpg';
 
 const recursos = (await getCollection('recursos')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
