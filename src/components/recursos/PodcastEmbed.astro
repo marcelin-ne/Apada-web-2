@@ -1,0 +1,86 @@
+---
+interface Props {
+  url: string;
+  title: string;
+  description?: string;
+  class?: string;
+}
+
+const { url, title, description, class: className } = Astro.props;
+
+function getSpotifyEmbedSrc(input: string): string | null {
+  try {
+    const parsed = new URL(input);
+    if (!parsed.hostname.includes('open.spotify.com')) return null;
+    const match = parsed.pathname.match(/^\/(episode|show|track)\/([a-zA-Z0-9]+)/);
+    if (!match) return null;
+    const [, type, id] = match;
+    return `https://open.spotify.com/embed/${type}/${id}`;
+  } catch {
+    return null;
+  }
+}
+
+function getFacebookEmbedSrc(input: string): string | null {
+  try {
+    const parsed = new URL(input);
+    if (!parsed.hostname.includes('facebook.com')) return null;
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(input)}&show_text=false`;
+  } catch {
+    return null;
+  }
+}
+
+const spotifySrc = getSpotifyEmbedSrc(url);
+const facebookSrc = getFacebookEmbedSrc(url);
+const fallbackLabel = facebookSrc ? 'Ver video en Facebook' : 'Escuchar en Spotify';
+---
+
+{
+  spotifySrc ? (
+    <div class:list={['overflow-hidden rounded-2xl', className]}>
+      <iframe
+        src={spotifySrc}
+        title={`Reproductor de podcast: ${title}`}
+        width="100%"
+        height="152"
+        style="border-radius:1rem"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      />
+    </div>
+  ) : facebookSrc ? (
+    <div class:list={['aspect-video w-full overflow-hidden rounded-2xl bg-black', className]}>
+      <iframe
+        src={facebookSrc}
+        title={`Reproductor de video: ${title}`}
+        width="100%"
+        height="100%"
+        style="border:none;overflow:hidden"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        allowfullscreen
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <div
+      class:list={[
+        'flex flex-col items-start gap-2 rounded-2xl border border-dashed border-border bg-brand-cream-dark/50 p-5',
+        className,
+      ]}
+    >
+      <p class="text-sm font-medium text-foreground">{title}</p>
+      {description && <p class="text-sm text-muted-foreground">{description}</p>}
+      <p class="text-sm text-muted-foreground">El reproductor de este episodio estará disponible próximamente.</p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm font-semibold text-primary hover:underline"
+      >
+        {fallbackLabel} →
+      </a>
+    </div>
+  )
+}

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
-import { HeartHandshake, Users, ArrowUpRight, Clock, Download, Headphones, BookOpen } from 'lucide-react';
+import { HeartHandshake, Users, ArrowUpRight, Clock, Download, Headphones, BookOpen, Video as VideoIcon } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SocialIcon from '@/components/icons/SocialIcon.astro';
 import TestimoniosSlider from '@/components/testimonios/TestimoniosSlider.tsx';
@@ -16,9 +16,6 @@ import heroFamiliaSensorial from '@/assets/photos/hero-familia-sensorial.jpg';
 import asambleaManosHero from '@/assets/photos/asamblea-manos.jpg';
 import equipoCamisetas from '@/assets/photos/equipo-camisetas.jpg';
 import eventoGrupoManta from '@/assets/photos/evento-grupo-manta.jpg';
-import tallerNinosCirculo from '@/assets/photos/taller-ninos-circulo.jpg';
-import standRegistro from '@/assets/photos/stand-registro.jpg';
-import eventoJovenes from '@/assets/photos/evento-jovenes.jpg';
 import oradorServicios from '@/assets/photos/orador-servicios.jpg';
 import radioEntrevista from '@/assets/photos/radio-entrevista.jpg';
 import conadisVotoSinLimites from '@/assets/photos/conadis-voto-sin-limites.jpg';
@@ -32,15 +29,6 @@ const heroImage = caminataAutismoPancartas;
 const ninoImage = familiaMarchaDiversidad;
 const servicioOrientacion = padreHijoMarchaGlobo;
 const servicioEscolar = capacitacionZonaKids;
-
-const eventosUpcoming = (await getCollection('eventos'))
-  .filter((e) => e.data.status === 'proximo')
-  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
-const eventoDestacado = eventosUpcoming.find((e) => e.data.featured) ?? eventosUpcoming[0];
-const agendaEventos = eventosUpcoming
-  .filter((e) => e.id !== eventoDestacado?.id)
-  .slice(0, 4);
-const eventoThumbs = [tallerNinosCirculo, standRegistro, eventoJovenes];
 
 const recursosGaleria = (await getCollection('recursos'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
@@ -389,111 +377,58 @@ const heroSlides = await Promise.all(
   </section>
 
   <!-- Eventos próximos -->
-  {eventoDestacado && (
-    <section class="relative isolate overflow-hidden bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
-      <Squiggle position="bottom-right" color="sky" />
-      <div class="relative z-10 mx-auto max-w-7xl">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
-              Eventos y programas
-            </span>
-            <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Próximos eventos</h2>
-          </div>
-          <a href="/eventos" class="text-sm font-semibold text-primary hover:underline">Ver todos los eventos →</a>
+  <section class="relative isolate overflow-hidden bg-brand-cream-dark px-4 py-16 sm:px-6 lg:px-8">
+    <Squiggle position="bottom-right" color="sky" />
+    <div class="relative z-10 mx-auto max-w-7xl">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span class="inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium text-brand-navy shadow-sm">
+            Eventos y programas
+          </span>
+          <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">Próximos eventos</h2>
         </div>
+        <a href="/eventos" class="text-sm font-semibold text-primary hover:underline">Ver todos los eventos →</a>
+      </div>
 
-        <div class="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <!-- Evento destacado -->
-          <article class="relative isolate flex min-h-[440px] flex-col justify-end overflow-hidden rounded-2xl p-6 text-white sm:p-8 lg:min-h-full">
-            <Image
-              src={eventoGrupoManta}
-              alt=""
-              width={800}
-              height={1000}
-              class="absolute inset-0 -z-20 h-full w-full object-cover"
-            />
-            <div class="absolute inset-0 -z-10 bg-gradient-to-t from-brand-navy via-brand-navy/75 to-brand-navy/20"></div>
-            <span class="inline-flex w-fit rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-white/25">
-              Evento destacado
+      <!-- Rueda Comunitaria: espacio recurrente de apoyo mutuo -->
+      <div class="mt-10 overflow-hidden rounded-3xl bg-brand-navy text-white">
+        <div class="grid grid-cols-1 gap-8 p-8 sm:p-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div>
+            <span class="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white">
+              Rueda Comunitaria
             </span>
-            <h3 class="mt-4 text-2xl font-bold sm:text-3xl">{eventoDestacado.data.title}</h3>
-            <p class="mt-3 max-w-md text-sm text-white/90">{eventoDestacado.data.description}</p>
+            <h3 class="mt-4 text-2xl font-bold sm:text-3xl">Una piedra menos, una perla más.</h3>
+            <p class="mt-4 text-white/85">
+              Te invitamos a unirte a un espacio de autocuidado y apoyo mutuo, especializado para familiares,
+              educadores y amigos de personas con autismo.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-3 rounded-2xl bg-white/10 p-6">
+            <span class="inline-flex w-fit rounded-full bg-brand-sky-light px-3 py-1 text-sm font-semibold text-brand-navy">
+              Todos los jueves
+            </span>
+            <span class="inline-flex items-center gap-2 text-sm text-white/90">
+              <Clock className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Hora Ecuador: 18:30 (6:30 PM)
+            </span>
+            <span class="inline-flex items-center gap-2 text-sm text-white/90">
+              <VideoIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Zoom · ID 827 7795 2592
+            </span>
             <a
-              href={eventoDestacado.data.ctaUrl}
+              href="https://zoom.us/j/82777952592"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white py-1.5 pr-1.5 pl-5 text-base font-semibold text-brand-navy transition-colors hover:bg-white/90"
+              class="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy transition-colors hover:bg-white/90"
             >
-              {eventoDestacado.data.ctaLabel}
-              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-navy text-white">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
+              Unirme por Zoom →
             </a>
-          </article>
-
-          <!-- Agenda: fecha + detalle -->
-          <div class="space-y-4 lg:col-span-2">
-            {agendaEventos.map((evento, i) => (
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,10rem)_1fr]">
-                <div class="flex flex-row overflow-hidden rounded-xl ring-1 ring-black/5 sm:flex-col">
-                  <div
-                    class:list={[
-                      'flex shrink-0 items-center justify-center px-4 py-2 text-center text-sm font-semibold capitalize',
-                      i === 0 ? 'bg-brand-sky text-brand-navy' : 'bg-muted text-muted-foreground',
-                    ]}
-                  >
-                    {new Intl.DateTimeFormat('es-EC', { weekday: 'long', timeZone: 'UTC' }).format(evento.data.date)}
-                  </div>
-                  <div
-                    class:list={[
-                      'flex flex-1 items-center justify-center gap-2 px-4 py-3 sm:py-5',
-                      i === 0 ? 'bg-brand-blue text-white' : 'bg-card text-foreground',
-                    ]}
-                  >
-                    <span class="text-2xl font-bold sm:text-3xl">
-                      {evento.data.date.toLocaleDateString('es-EC', { day: '2-digit', timeZone: 'UTC' })}
-                    </span>
-                    <span class="text-left text-xs font-semibold uppercase leading-tight">
-                      {evento.data.date.toLocaleDateString('es-EC', { month: 'short', timeZone: 'UTC' }).replace('.', '')}<br />
-                      {evento.data.date.getUTCFullYear()}
-                    </span>
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-4 rounded-xl bg-card p-4 ring-1 ring-black/5">
-                  <div class="min-w-0 flex-1">
-                    {evento.data.time && (
-                      <span class="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                        <Clock className="h-3.5 w-3.5" /> {evento.data.time}
-                      </span>
-                    )}
-                    <h3 class="mt-2 font-bold text-foreground">{evento.data.title}</h3>
-                    <a
-                      href={evento.data.ctaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="mt-1 inline-flex min-h-11 items-center gap-1 py-2 text-sm font-semibold text-primary hover:underline"
-                    >
-                      Ver detalles
-                      <ArrowUpRight className="h-3.5 w-3.5" />
-                    </a>
-                  </div>
-                  <Image
-                    src={eventoThumbs[i % eventoThumbs.length]}
-                    alt=""
-                    width={160}
-                    height={160}
-                    class="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
-                  />
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <!-- Preguntas frecuentes -->
   <section class="relative isolate overflow-hidden px-4 py-16 sm:px-6 lg:px-8">

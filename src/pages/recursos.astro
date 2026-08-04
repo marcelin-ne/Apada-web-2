@@ -1,20 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
+import { Scale, BookOpen, Video as VideoIcon, Mic, Clock, Download, ArrowUpRight } from 'lucide-react';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageBanner from '@/components/PageBanner.astro';
 import YouTubeEmbed from '@/components/ui/YouTubeEmbed.astro';
+import PodcastEmbed from '@/components/recursos/PodcastEmbed.astro';
+import ResourceFilters from '@/components/recursos/ResourceFilters.tsx';
 import bannerImage from '@/assets/photos/capacitacion-zona-kids.jpg';
 
 const recursos = (await getCollection('recursos')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
-
-const grupos: { tipo: 'guia' | 'articulo' | 'video' | 'podcast'; titulo: string }[] = [
-  { tipo: 'guia', titulo: 'Guías descargables' },
-  { tipo: 'podcast', titulo: 'Podcast: Más Allá del Autismo' },
-  { tipo: 'video', titulo: 'Videos' },
-  { tipo: 'articulo', titulo: 'Artículos' },
-];
 
 const audienceLabel: Record<string, string> = {
   familias: 'Familias',
@@ -23,102 +19,225 @@ const audienceLabel: Record<string, string> = {
   general: 'Todo público',
 };
 
-// Categorías por tema (contenido pendiente de cargar)
 const categorias = [
   {
-    id: 'normativa-legal',
-    titulo: 'Normativa legal',
-    descripcion: 'Leyes, reglamentos y documentos oficiales sobre los derechos de las personas con autismo en Ecuador.',
+    tipo: 'articulo',
+    titulo: 'Marco Legal',
+    texto: 'Leyes, reglamentos y documentos oficiales sobre los derechos de las personas con autismo en Ecuador.',
+    icon: Scale,
   },
   {
-    id: 'recursos-pedagogicos',
-    titulo: 'Recursos pedagógicos',
-    descripcion: 'Materiales y guías de adaptación para docentes y familias en el ámbito educativo.',
+    tipo: 'guia',
+    titulo: 'Guías Didácticas',
+    texto: 'Materiales prácticos para educadores, familias y profesionales de la salud.',
+    icon: BookOpen,
   },
+  {
+    tipo: 'video',
+    titulo: 'Videos',
+    texto: 'Charlas, testimonios y contenido audiovisual educativo sobre el autismo.',
+    icon: VideoIcon,
+  },
+  {
+    tipo: 'podcast',
+    titulo: 'Podcasts',
+    texto: 'Entrevistas a expertos y experiencias compartidas por la comunidad.',
+    icon: Mic,
+  },
+] as const;
+
+const grupos: { tipo: 'articulo' | 'guia' | 'video' | 'podcast'; titulo: string }[] = [
+  { tipo: 'articulo', titulo: 'Marco Legal' },
+  { tipo: 'guia', titulo: 'Guías descargables' },
+  { tipo: 'video', titulo: 'Videos' },
+  { tipo: 'podcast', titulo: 'Podcast: Más Allá del Autismo' },
 ];
+
+function accionPara(r: (typeof recursos)[number]) {
+  if (r.data.downloadUrl) return { href: r.data.downloadUrl, label: 'Descargar', externo: false };
+  if (r.data.externalUrl) return { href: r.data.externalUrl, label: 'Ver más', externo: true };
+  return null;
+}
 ---
 
 <BaseLayout
-  title="Recursos"
-  description="Guías descargables, artículos, videos y el podcast Más Allá del Autismo — biblioteca de recursos de APADA del Ecuador."
+  title="Centro de Recursos"
+  description="Guías descargables, marco legal, videos y el podcast Más Allá del Autismo — biblioteca de recursos de APADA del Ecuador."
 >
   <PageBanner
-    title="Recursos"
-    subtitle="Guías, artículos, videos y nuestro podcast, pensados para familias, docentes y profesionales."
+    title="Centro de Recursos"
+    subtitle="Encuentra información, guías y apoyo sobre el Trastorno del Espectro Autista."
     image={bannerImage}
     breadcrumb="Recursos"
   />
 
   <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-    {grupos.map(({ tipo, titulo }) => {
-      const items = recursos.filter((r) => r.data.type === tipo);
-      if (items.length === 0) return null;
-      if (tipo === 'video') {
-        return (
-          <section id={tipo} class="scroll-mt-20 border-b border-border py-10 first:pt-0 last:border-0">
-            <span class="inline-flex rounded-full bg-brand-cream-dark px-4 py-1.5 text-sm font-medium text-brand-navy">
-              Videos
-            </span>
-            <h2 class="mt-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
-              Aprende con nuestros videos
-            </h2>
-            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:auto-rows-[190px] lg:auto-rows-[220px]">
-              {items.map((r, i) => {
-                const isFeatured = i === 0;
-                return (
-                  <article class:list={['group relative overflow-hidden rounded-2xl', isFeatured && 'sm:col-span-2 sm:row-span-2']}>
-                    {r.data.externalUrl && (
-                      <YouTubeEmbed
-                        url={r.data.externalUrl}
-                        title={r.data.title}
-                        description={r.data.description}
-                        overlay={isFeatured}
-                        class="aspect-video sm:aspect-auto sm:h-full"
-                      />
-                    )}
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        );
-      }
-      return (
-        <section id={tipo} class="scroll-mt-20 border-b border-border py-10 first:pt-0 last:border-0">
-          <h2 class="text-2xl font-bold text-foreground">{titulo}</h2>
-          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((r) => (
-              <article class="rounded-xl border border-border bg-card p-5">
-                <span class="inline-block rounded-full bg-brand-blue-light/10 px-2.5 py-0.5 text-xs font-semibold text-brand-blue-light">
-                  {audienceLabel[r.data.audience]}
-                </span>
-                <h3 class="mt-3 font-semibold text-foreground">{r.data.title}</h3>
-                <p class="mt-2 text-sm text-muted-foreground">{r.data.description}</p>
-                <a
-                  href={r.data.downloadUrl ?? r.data.externalUrl ?? '#'}
-                  target={r.data.externalUrl ? '_blank' : undefined}
-                  rel={r.data.externalUrl ? 'noopener noreferrer' : undefined}
-                  class="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
-                >
-                  {r.data.downloadUrl ? 'Descargar' : 'Ver más'} →
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
-      );
-    })}
+    <!-- Categorías -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {categorias.map(({ tipo, titulo, texto, icon: Icon }) => (
+        <a
+          href={`#${tipo}`}
+          class="group flex flex-col items-center rounded-2xl border border-border bg-card p-6 text-center transition-colors hover:border-brand-blue-light"
+        >
+          <span class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-cream-dark text-brand-navy">
+            <Icon className="h-6 w-6" aria-hidden="true" />
+          </span>
+          <h3 class="mt-4 font-semibold text-foreground">{titulo}</h3>
+          <p class="mt-2 text-sm text-muted-foreground">{texto}</p>
+          <span class="mt-4 text-sm font-semibold text-primary group-hover:underline">Ver más →</span>
+        </a>
+      ))}
+    </div>
 
-    {categorias.map(({ id, titulo, descripcion }) => (
-      <section id={id} class="scroll-mt-20 border-b border-border py-10 last:border-0">
-        <h2 class="text-2xl font-bold text-foreground">{titulo}</h2>
-        <p class="mt-2 max-w-2xl text-sm text-muted-foreground">{descripcion}</p>
-        <div class="mt-6 flex items-center justify-center rounded-xl border border-dashed border-border bg-brand-cream-dark/50 px-6 py-12 text-center">
-          <p class="text-sm text-muted-foreground">
-            Pronto publicaremos documentos en esta categoría.
+    <!-- Rueda Comunitaria -->
+    <div class="mt-16 overflow-hidden rounded-3xl bg-brand-navy text-white">
+      <div class="grid grid-cols-1 gap-8 p-8 sm:p-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+        <div>
+          <span class="inline-flex rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white">
+            Rueda Comunitaria
+          </span>
+          <h2 class="mt-4 text-2xl font-bold sm:text-3xl">Una piedra menos, una perla más.</h2>
+          <p class="mt-4 text-white/85">
+            Te invitamos a unirte a un espacio de autocuidado y apoyo mutuo, especializado para familiares,
+            educadores y amigos de personas con autismo.
           </p>
         </div>
-      </section>
-    ))}
+
+        <div class="flex flex-col gap-3 rounded-2xl bg-white/10 p-6">
+          <span class="inline-flex w-fit rounded-full bg-brand-sky-light px-3 py-1 text-sm font-semibold text-brand-navy">
+            Todos los jueves
+          </span>
+          <span class="inline-flex items-center gap-2 text-sm text-white/90">
+            <Clock className="h-4 w-4 shrink-0" aria-hidden="true" />
+            Hora Ecuador: 18:30 (6:30 PM)
+          </span>
+          <span class="inline-flex items-center gap-2 text-sm text-white/90">
+            <VideoIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
+            Zoom · ID 827 7795 2592
+          </span>
+          <a
+            href="https://zoom.us/j/82777952592"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy transition-colors hover:bg-white/90"
+          >
+            Unirme por Zoom →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explorador -->
+    <section id="explorador" class="mt-16 scroll-mt-20">
+      <h2 class="text-2xl font-bold text-foreground sm:text-3xl">Explora todos los recursos</h2>
+      <p class="mt-2 max-w-2xl text-muted-foreground">
+        Filtra por categoría para encontrar justo lo que necesitas.
+      </p>
+
+      <div class="sticky top-16 z-10 -mx-4 mt-6 bg-background/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-full sm:border sm:border-border sm:px-3 sm:py-2">
+        <ResourceFilters client:load />
+      </div>
+
+      <div class="mt-8">
+        {grupos.map(({ tipo, titulo }) => {
+          const items = recursos.filter((r) => r.data.type === tipo);
+
+          if (tipo === 'video') {
+            return (
+              <section id={tipo} data-resource-type={tipo} class="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-0">
+                <h3 class="text-xl font-bold text-foreground">{titulo}</h3>
+                {items.length > 0 ? (
+                  <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:auto-rows-[190px] lg:auto-rows-[220px]">
+                    {items.map((r, i) => {
+                      const isFeatured = i === 0;
+                      return (
+                        <article class:list={['group relative overflow-hidden rounded-2xl', isFeatured && 'sm:col-span-2 sm:row-span-2']}>
+                          {r.data.externalUrl && (
+                            <YouTubeEmbed
+                              url={r.data.externalUrl}
+                              title={r.data.title}
+                              description={r.data.description}
+                              overlay={isFeatured}
+                              class="aspect-video sm:aspect-auto sm:h-full"
+                            />
+                          )}
+                        </article>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p class="mt-6 text-sm text-muted-foreground">Pronto publicaremos videos en esta categoría.</p>
+                )}
+              </section>
+            );
+          }
+
+          if (tipo === 'podcast') {
+            return (
+              <section id={tipo} data-resource-type={tipo} class="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-0">
+                <h3 class="text-xl font-bold text-foreground">{titulo}</h3>
+                {items.length > 0 ? (
+                  <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+                    {items.map((r) => (
+                      <div class="rounded-2xl border border-border bg-card p-5">
+                        <h4 class="font-semibold text-foreground">{r.data.title}</h4>
+                        <p class="mt-1 text-sm text-muted-foreground">{r.data.description}</p>
+                        <div class="mt-4">
+                          {r.data.externalUrl && <PodcastEmbed url={r.data.externalUrl} title={r.data.title} />}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p class="mt-6 text-sm text-muted-foreground">Pronto publicaremos nuevos episodios.</p>
+                )}
+              </section>
+            );
+          }
+
+          return (
+            <section id={tipo} data-resource-type={tipo} class="scroll-mt-24 border-b border-border py-10 first:pt-0 last:border-0">
+              <h3 class="text-xl font-bold text-foreground">{titulo}</h3>
+              {items.length > 0 ? (
+                <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {items.map((r) => {
+                    const accion = accionPara(r);
+                    return (
+                      <article class="flex flex-col rounded-xl border border-border bg-card p-5">
+                        <span class="inline-block w-fit rounded-full bg-brand-blue-light/10 px-2.5 py-0.5 text-xs font-semibold text-brand-blue-light">
+                          {audienceLabel[r.data.audience]}
+                        </span>
+                        <h4 class="mt-3 font-semibold text-foreground">{r.data.title}</h4>
+                        <p class="mt-2 flex-1 text-sm text-muted-foreground">{r.data.description}</p>
+                        {accion && (
+                          <a
+                            href={accion.href}
+                            target={accion.externo ? '_blank' : undefined}
+                            rel={accion.externo ? 'noopener noreferrer' : undefined}
+                            download={accion.externo ? undefined : true}
+                            class="mt-4 inline-flex w-fit items-center justify-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                          >
+                            {accion.externo ? <ArrowUpRight className="h-4 w-4" /> : <Download className="h-4 w-4" />}
+                            {accion.label}
+                          </a>
+                        )}
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p class="mt-6 text-sm text-muted-foreground">Pronto publicaremos documentos en esta categoría.</p>
+              )}
+              {tipo === 'articulo' && (
+                <p class="mt-6 rounded-xl border border-dashed border-border bg-brand-cream-dark/50 p-4 text-sm text-muted-foreground">
+                  Iremos publicando aquí más leyes, reglamentos y resoluciones oficiales sobre los derechos de las
+                  personas con autismo en Ecuador.
+                </p>
+              )}
+            </section>
+          );
+        })}
+      </div>
+    </section>
   </div>
 </BaseLayout>
